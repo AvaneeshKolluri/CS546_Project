@@ -9,7 +9,8 @@ app.use('/public', static);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // read request body from a form
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+//Changed default layout to false b/c main was showing twice
+app.engine('handlebars', exphbs({ defaultLayout: false }));
 app.set('view engine', 'handlebars');
 
 configRoutes(app);
