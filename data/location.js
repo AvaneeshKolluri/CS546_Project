@@ -111,11 +111,11 @@ const exportedMethods = {
         sendCovidAlert(emails, location.DateVisited, location.Addresss);
         return location;
     },
-    async getAllLocations(userID) {
+    async getUserLocations(userID) {
         if (!validate.userID(userID)) {
             throw "Invalid userID parameter";
         }
-        toMongoID = ObjectId(userID);
+        const toMongoID = ObjectId(userID);
 
         const usersCollection = await users();
         const user = await usersCollection.findOne({ _id: toMongoID });
@@ -133,6 +133,11 @@ const exportedMethods = {
         }
         return locationDocuments;
     },
+    async getAllLocations() {
+        const locationsCollection = await locations();
+        const locationsArray = await locationsCollection.find({});
+        return locationsArray;
+    }
 };
 
 module.exports = exportedMethods;
