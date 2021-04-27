@@ -1,0 +1,14 @@
+<h1>Login to your COVID HotSpot Account</h1>
+{{#if hasErrors}}
+    <p>Invalid username and/or password</p>
+{{/if}}
+<form action ="/api/login" id="login-form" method="POST">
+    
+    <label for="username" id="username-label">Username:</label>
+    <input type="text" name="username" id="username" placeholder="Enter Username" required>
+
+    <label for="password" id="password-label">Password:</label>
+    <input type="password" name="password" id="password" placeholder="Enter Password" required>
+
+    <button type="submit">Login</button>
+</form>

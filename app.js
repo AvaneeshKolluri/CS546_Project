@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const session = require('express-session');
 const static = express.static(__dirname + '/public');
 
 const configRoutes = require('./routes');
@@ -12,6 +13,14 @@ app.use(express.urlencoded({ extended: true })); // read request body from a for
 //Changed default layout to false b/c main was showing twice
 app.engine('handlebars', exphbs({ defaultLayout: false }));
 app.set('view engine', 'handlebars');
+
+// Added this express session cookie to check if user is logged in or not
+app.use(session({
+  name: 'AuthCookie',
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}));
 
 configRoutes(app);
 

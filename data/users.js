@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const bcrypt = require('bcrypt');
+const { get } = require('../routes/private');
 const saltRounds = 16;
 
 let methods = {
@@ -42,6 +43,20 @@ let methods = {
 	    return mongoID;
 
 
+	},
+
+	async getUser(username){
+		if (!username) throw 'You must provide an username.';
+		if (typeof(username) != 'string' || username.trim().length === 0 ){
+			throw 'You must provide a username that is more than just empty spaces.';
+		}
+		const userCollection = await users();
+        const user = await userCollection.findOne({ UserID: username });
+        if (user === null) {
+            throw 'No user exists with the given username';
+        }
+
+		return user;
 	}
 };
 module.exports = methods;

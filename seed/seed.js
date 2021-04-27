@@ -15,7 +15,7 @@ async function main() {
 
     let password1 = "thisisapassword321";
     let user1 = {
-        UserID: "Cat123",
+        UserID: "cat123",
         passwordHash: await bcrypt.hash(password1, 16),
         email: "example@example.com",
         locationIDs: []
@@ -28,7 +28,7 @@ async function main() {
 
     let password2 = "hunter2";
     let user2 = {
-        UserID: "Dog321",
+        UserID: "dog321",
         passwordHash: await bcrypt.hash(password2, 16),
         email: "test@test.com",
         locationIDs: []
