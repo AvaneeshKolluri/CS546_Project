@@ -112,26 +112,43 @@ const exportedMethods = {
         return location;
     },
     async getUserLocations(userID) {
-        if (!validate.userID(userID)) {
+        
+
+        /*if (!validate.userID(userID)) {
             throw "Invalid userID parameter";
-        }
-        const toMongoID = ObjectId(userID);
+        }*/
+        //const toMongoID = ObjectId(userID);
+        //get the ObjectID by searching through
+
+
+        //const toMongoID = req.session.userid._id;
+        
+        
 
         const usersCollection = await users();
-        const user = await usersCollection.findOne({ _id: toMongoID });
+        const user = await usersCollection.findOne({ UserID: userID });
         if (user == null) {
             throw "No User with id " + userID;
         }
         const locationsCollection = await locations();
         locationDocuments = [];
-        for (let i = 0; i < user.locations.length; i++) {
-            const locationDocument = await locationsCollection.findOne({ _id: users.locations[i] });
+        //console.log(typeof(user.locations));
+
+        console.log(user);
+
+        for (let user_location of user.locationIDs){
+            console.log(user_location);
+
+            const locationDocument = await locationsCollection.findOne({ _id: user_location });
             if (locationDocument == null) {
-                throw "No location document with id " + user.locations[i];
+                throw "No location document with id " + user_location;
             }
             locationDocuments.push(locationDocument);
+
         }
         return locationDocuments;
+
+        
     },
     async getAllLocations() {
         const locationsCollection = await locations();

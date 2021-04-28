@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
         res.render('login', {hasErrors: true});
     } else {
         req.session.user = { UserID: username};
-        res.redirect('/private');
+        res.redirect('/private/userinfo');
     }
 
 });
