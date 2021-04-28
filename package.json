@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/AvaneeshKolluri/CS546_Project#readme",
     "dependencies": {
+        "@react-google-maps/api": "^2.1.1",
         "axios": "^0.21.1",
         "bcrypt": "^5.0.1",
         "deep-email-validator": "^0.1.18",
@@ -26,6 +27,8 @@
         "express-handlebars": "^5.3.0",
         "express-session": "^1.17.1",
         "mongodb": "^2.2.36",
+        "mongojs": "^3.1.0",
+        "mongoose": "^5.12.6",
         "nodemailer": "^6.5.0"
     }
 }
