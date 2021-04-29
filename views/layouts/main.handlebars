@@ -10,7 +10,7 @@
 
 </head>
 
-    <body>
+    <body class="d-flex flex-column" style="min-height: 100vh;">
         <header>
             <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
@@ -43,47 +43,61 @@
             </nav>
         </header>
 
-        <h1 class="display-4 text-center">Main page</h1>
-        <blockquote class="blockquote text-center">
-            <p class="mb-0">"____" is a tool that lets you see if locations you have been/locations you plan to visit is a COVID hotspot. 
-                This is a self-reportable platform, so all of our data is coming from users who are fighting the virus together.
-                <p class="font-weight-bold">Let's all work together to flatten the curve!</p>
-            </p>
-        </blockquote>
-    	
+        <main class="flex-fill">
+            <h1 class="display-4 text-center">Main page</h1>
+            <blockquote class="blockquote text-center">
+                <p class="mb-0">"____" is a tool that lets you see if locations you have been/locations you plan to visit is a COVID hotspot. 
+                    This is a self-reportable platform, so all of our data is coming from users who are fighting the virus together.
+                    <p class="font-weight-bold">Let's all work together to flatten the curve!</p>
+                </p>
+            </blockquote>
+            
 
-        {{{body}}}
+            {{{body}}}
 
-        <h3 class="ml-4">Heatmap</h3>
-        <div id="map" class="mx-auto" style="height: 400px; width: 90%"></div>
+            <h3 class="ml-4">Heatmap</h3>
+            <div id="map" class="mx-auto" style="height: 400px; width: 90%"></div>
 
-        <div class="text-center pt-4">
-            <button type="button" class="btn btn-primary mx-auto" onclick="toggleLocationsList()">Show hotspot addresses</button>
-        </div>	
+            <div class="text-center pt-4">
+                <button type="button" class="btn btn-primary mx-auto" onclick="toggleLocationsList()">Show hotspot addresses</button>
+            </div>	
 
-        <div id="heatmap-locations" class="mt-4" style="display: none;">
-            <ol id='locations-list'>
-                {{#each this.locations}}
-                    <li>{{this.Address}}: [{{this.Coordinates.coordinates}}]</li>
-                {{/each}}
-            </ol>	
-        </div>
-	
+            <div id="heatmap-locations" class="mt-4" style="display: none;">
+                <ol id='locations-list'>
+                    {{#each this.locations}}
+                        <li>{{this.Address}}: [{{this.Coordinates.coordinates}}]</li>
+                    {{/each}}
+                </ol>	
+            </div>
+
+            <h2 class="display-5 text-center mt-4">Recent Cases</h2>
+
+            <div class="container">
+                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+            </div>
+
+            <div id="confirmed-cases" class="mt-4">
+                <ol id='cases-list'>
+                    {{#each this.locations}}
+                        <li>{{this.DateVisited}}</li>
+                    {{/each}}
+                </ol>	
+            </div>
+
+        </main>
 
         <!-- Footer -->
-        <footer class="page-footer font-small bg-dark pt-2 navbar fixed-bottom">
+        <footer class="page-footer font-small bg-dark navbar">
 
-        <!-- Footer Elements -->
-        <div class="container">
+            <!-- Footer Elements -->
+            <div class="container">
 
+            </div>
+            <!-- Footer Elements -->
 
-
-        </div>
-        <!-- Footer Elements -->
-
-        <div class="footer-copyright text-center py-3 text-white">
-            Made with ♡ by the CS-546 Team
-        </div>
+            <div class="footer-copyright text-center py-3 text-white">
+                Made with ♡ by the CS-546 Team
+            </div>
 
         </footer>
         <!-- Footer -->
@@ -92,11 +106,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-        <!-- Script to allow use of 'require' on client side js -->
-        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-        
         <!-- Script for our client side -->
-        <script src="../../public/js/script.js"></script>
+        <script src="../../public/js/heatmap.js"></script>
         
         <!-- Google maps api 
         https://developers.google.com/maps/documentation/javascript/heatmaplayer
@@ -104,6 +115,10 @@
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASAj5nm_3ZhWHIcL12-kNhWKkxNHLnJSA&libraries=visualization&callback=initMap">
         </script>
+
+        <!--- Library to generate dynamic line graphs -->
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script src="../../public/js/linegraph.js"></script>
     </body>
 
 </html>
