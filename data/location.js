@@ -152,7 +152,8 @@ const exportedMethods = {
     },
     async getAllLocations() {
         const locationsCollection = await locations();
-        const locationsArray = await locationsCollection.find({});
+        //You need toArray() at the end b/c without it you return a cursor to the result set of a query
+        const locationsArray = await locationsCollection.find({}).toArray();
         return locationsArray;
     }
 };
