@@ -6,8 +6,8 @@
 <div id="userloc">
 	<ol id='user_locations'>
 		{{#each this.locations}}
-			 {{this.Address}} 
-				{{>location_info }} 
+			{{this.DateVisited}} :  {{this.Address}} 
+			{{>location_info }} 
 		{{/each}}
 		
 
@@ -27,9 +27,12 @@
     <label for="state" class="bold-text"> State: </label>
     <input type="text" name="state" id="state" placeholder="Enter The State">
 
+    <label for="date" class="bold-text"> Date Visited: </label>
+    <input type="date" name="date" id="date" placeholder="Enter The Date">
+
     <button type="submit"> Add COVID Location</button>
 
-    <div id="server-results"></div>
+    
 </form>
 
 

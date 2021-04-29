@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const location= require('../data/location');
+const Nominatim =require( 'nominatim-geocoder');
+const geocoder = new Nominatim();
 
 router.get("/", async (req, res) => {
     if (req.session.user) {
@@ -21,7 +23,22 @@ router.get("/userinfo", async (req, res) => {
 router.post("/userinfo", async (req, res) => {
 	console.log(req.body);
 	//must validate the form submission here
-    res.render('partials/location_info',{street:req.body.street,  town:req.body.town,  state:req.body.state}); 
+   geocoder.search( { street:req.body.street,city:req.body.town, state:req.body.state } ).then((response) => {
+        console.log("lat: " + response[0].lat);
+        console.log("lon: " + response[0].lon);
+        //add to the database - create a location id and insert the location inside the location database
+        //add the location id into the users database
+
+        //let newLocation = location_database.createLocation(req.session.user['UserID'],response[0].lon,response[0].lat,true,response[0].display_name,req.body.date);
+        res.render('partials/location_info',{geo: response[0].display_name, date:req.body.date});
+        
+
+
+    }).catch((error) => {
+        console.log("search not able");
+        //throw an error
+        console.log(error);
+    })
 
 });
 

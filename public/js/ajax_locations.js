@@ -6,7 +6,7 @@
 	let street = $('#street-address');
 	let state = $('#state');
 	let town = $('#town');
-
+	let date = $('#date');
 	let user_locations = $('#user_locations');
 
 	console.log("IM HERE");
@@ -19,7 +19,7 @@
 		let street_val = street.val();
 		let state_val = state.val();
 		let town_val = town.val();
-
+		let date_val = date.val();
 		console.log(street_val);
 
 		
@@ -31,7 +31,8 @@
 			data: JSON.stringify({
 				street: street_val,
 				state:state_val,
-				town: town_val
+				town: town_val,
+				date: date_val
 			})
 		};
 
