@@ -34,7 +34,7 @@ function sendCovidAlert(emails, address, date) {
 }
 const exportedMethods = {
     async createLocation(userID, longitude, latitude, covidStatus, Address, dateVisited) {
-        if (!validate.userID(userID)) {
+        if (!validate.username(userID)) {
             throw "Invalid User ID parameter";
         }
         if (!validate.coordinates(longitude, latitude)) {
@@ -61,7 +61,7 @@ const exportedMethods = {
         };
         const usersCollection = await users();
         //Check if user exists
-        const user = await usersCollection.findOne({ _id: ObjectId(userID) });
+        const user = await usersCollection.findOne({ UserID: ObjectId(userID) });
         if (user == null) {
             throw "No User with id " + userID;
         }
@@ -74,7 +74,7 @@ const exportedMethods = {
         }
 
         //Add locationID to users locationID array
-        const addToUser = await usersCollection.update({ _id: userID }, { $push: { locationIDs: submitLocation.insertedID } });
+        const addToUser = await usersCollection.update({ userID: userID }, { $push: { locationIDs: submitLocation.insertedID } });
         if (addToUser.result.nModified != 1) {
             throw "Could not updates users subdocument array";
         }
@@ -112,7 +112,7 @@ const exportedMethods = {
         return location;
     },
     async getUserLocations(userID) {
-        
+
 
         /*if (!validate.userID(userID)) {
             throw "Invalid userID parameter";
@@ -122,8 +122,8 @@ const exportedMethods = {
 
 
         //const toMongoID = req.session.userid._id;
-        
-        
+
+
 
         const usersCollection = await users();
         const user = await usersCollection.findOne({ UserID: userID });
@@ -136,7 +136,7 @@ const exportedMethods = {
 
         console.log(user);
 
-        for (let user_location of user.locationIDs){
+        for (let user_location of user.locationIDs) {
             console.log(user_location);
 
             const locationDocument = await locationsCollection.findOne({ _id: user_location });
@@ -148,7 +148,7 @@ const exportedMethods = {
         }
         return locationDocuments;
 
-        
+
     },
     async getAllLocations() {
         const locationsCollection = await locations();

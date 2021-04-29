@@ -1,3 +1,5 @@
+//Change usernames & passwords to meet application requirements before submitting
+
 const bcrypt = require('bcrypt');
 let { ObjectId } = require('mongodb');
 const collections = require('../config/mongoCollections');
@@ -24,7 +26,7 @@ async function main() {
     if (insertFirstUser.insertedCount != 1) {
         throw "Expected inserted: " + 1 + " Actual inserted: " + insertFirstUser.insertedCount;
     }
-    let firstUserId = insertFirstUser.insertedId;
+    let firstUserId = user1.UserID;
 
     let password2 = "hunter2";
     let user2 = {
@@ -38,7 +40,21 @@ async function main() {
         throw "Expected inserted: " + 1 + " Actual inserted: " + insertSecondUser.insertedCount;
     }
 
-    let secondUserId = insertSecondUser.insertedId;
+    let secondUserId = user2.UserID;
+
+    let password3 = "ComplicatedPassword!23";
+    let user3 = {
+        UserID: "HiHelloQwerty",
+        passwordHash: await bcrypt.hash(password3, 16),
+        email: "123@123gmail.com",
+        locationIDs: []
+    };
+    const insertThirdUser = await usersCollection.insertOne(user3);
+    if (insertThirdUser.insertedCount != 1) {
+        throw "Expected inserted: " + 1 + " Actual inserted: " + insertThirdUser.insertedCount;
+    }
+
+    let thirdUserId = user3.UserID;
 
     let location1 = {
         _id: ObjectId(),
@@ -111,24 +127,63 @@ async function main() {
         DateVisited: new Date("04/15/2021")
     };
 
-    let locationList = [location1, location2, location3, location4, location5, location6];
+    let location7 = {
+        _id: ObjectId(),
+        Coordinates: {
+            type: "Point",
+            coordinates: [-74.030200, 40.738550]
+        },
+        UserID: thirdUserId,
+        CovidStatus: true,
+        Address: "135 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
+        DateVisited: new Date("04/13/2021")
+    };
 
+    let location8 = {
+        _id: ObjectId(),
+        Coordinates: {
+            type: "Point",
+            coordinates: [-74.030800, 40.737190]
+        },
+        UserID: thirdUserId,
+        CovidStatus: true,
+        Address: "95 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
+        DateVisited: new Date("04/01/2021")
+    };
+    let location9 = {
+        _id: ObjectId(),
+        Coordinates: {
+            type: "Point",
+            coordinates: [-74.030800, 40.737190]
+        },
+        UserID: thirdUserId,
+        CovidStatus: true,
+        Address: "95 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
+        DateVisited: new Date("04/01/2021")
+    };
+    let locationList = [location1, location2, location3, location4, location5, location6, location7, location8, location9];
     let user1LocationIDs = [location1._id, location2._id, location3._id];
     let user2LocationIDs = [location4._id, location5._id, location6._id];
+    let user3LocationIDs = [location7._id, location8._id, location9._id];
 
     const addLocationListData = await locationCollection.insert(locationList);
-    if (addLocationListData.insertedCount != 6) {
-        throw addLocationListData.insertedCount + " were inserted instead of 6";
+    if (addLocationListData.insertedCount != 9) {
+        throw addLocationListData.insertedCount + " were inserted instead of 9";
     }
 
-    const addUser1Locations = await usersCollection.update({ _id: firstUserId }, { $addToSet: { locationIDs: { $each: user1LocationIDs } } });
+    const addUser1Locations = await usersCollection.update({ UserID: firstUserId }, { $addToSet: { locationIDs: { $each: user1LocationIDs } } });
     if (addUser1Locations.result.nModified != 1) {
         throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
     }
 
-    const addUser2Locations = await usersCollection.update({ _id: secondUserId }, { $addToSet: { locationIDs: { $each: user2LocationIDs } } });
+    const addUser2Locations = await usersCollection.update({ UserID: secondUserId }, { $addToSet: { locationIDs: { $each: user2LocationIDs } } });
     if (addUser2Locations.result.nModified != 1) {
         throw "Expected modified: " + 1 + " Actual modified: " + addUser2Locations.result.nModified;
+    }
+
+    const addUser3Locations = await usersCollection.update({ UserID: thirdUserId }, { $addToSet: { locationIDs: { $each: user3LocationIDs } } });
+    if (addUser3Locations.result.nModified != 1) {
+        throw "Expected modified: " + 1 + " Actual modified: " + addUser3Locations.result.nModified;
     }
 
     console.log(`First user credentials: ${user1.UserID} : ${password1}`);
@@ -138,6 +193,10 @@ async function main() {
     console.log(`Second user credentials: ${user2.UserID} : ${password2}`);
     console.log(`${user2.UserID} visited the following addresses: `);
     console.log("\t" + location4.Address + " on " + location4.DateVisited + "\n\t" + location5.Address + " on " + location5.DateVisited + "\n\t" + location6.Address + " on " + location6.DateVisited);
+
+    console.log(`Third user credentials: ${user3.UserID} : ${password3}`);
+    console.log(`${user3.UserID} visited the following addresses: `);
+    console.log("\t" + location7.Address + " on " + location7.DateVisited + "\n\t" + location8.Address + " on " + location8.DateVisited + "\n\t" + location9.Address + " on " + location9.DateVisited);
 
     const db = await connection();
     await db.serverConfig.close();

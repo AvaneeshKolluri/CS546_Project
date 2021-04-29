@@ -1,17 +1,17 @@
 let { ObjectId } = require('mongodb');
 const emailValidator = require("deep-email-validator");
 const exportedMethods = {
-    userID(userID) {
-        if (!userId || typeof userID !== "string" || userID.trim().length == 0) {
-            return false;
-        }
-        try {
-            ObjectId(userID);
-            return true;
-        } catch (e) {
-            return false;
-        }
-    },
+    //userID(userID) {
+    //    if (!userId || typeof userID !== "string" || userID.trim().length == 0) {
+    //        return false;
+    //    }
+    //    try {
+    //        ObjectId(userID);
+    //        return true;
+    //    } catch (e) {
+    //        return false;
+    //    }
+    //},
     coordinates(longitude, latitude) {
         if (typeof longitude !== "number") {
             return false;
@@ -41,11 +41,11 @@ const exportedMethods = {
         }
         return true;
     },
-    username(username) {
+    userID(userID) {
         if (!username || typeof username !== "string" || username.trim().length == 0) {
             return false;
         }
-        // Alphanumeric string between 3 to 16 characters
+        // Alphanumeric string between 6 to 16 characters
         let usernamePattern = /^[a-z0-9]{6,16}$/;
         return username.match(usernamePattern);
     },

@@ -16,14 +16,23 @@ app.set('view engine', 'handlebars');
 
 // Added this express session cookie to check if user is logged in or not
 app.use(session({
-  name: 'AuthCookie',
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: true
+    name: 'AuthCookie',
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true
 }));
+
+app.use('*', (req, res, next) => {
+    let authenticated = " (Non-Authenticated User)";
+    if (req.session && req.session.user) {
+        authenticated = " (Authenticated User)";
+    }
+    console.log("[" + (new Date().toUTCString()) + "] " + req.method + " " + req.originalUrl + authenticated);
+    next();
+});
 
 configRoutes(app);
 
 app.listen(3000, () => {
-  console.log('Routes are running on http://localhost:3000');
+    console.log('Routes are running on http://localhost:3000');
 });
