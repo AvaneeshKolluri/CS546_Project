@@ -34,7 +34,7 @@ function sendCovidAlert(emails, address, date) {
 }
 const exportedMethods = {
     async createLocation(userID, longitude, latitude, covidStatus, Address, dateVisited) {
-        if (!validate.username(userID)) {
+        /*if (!validate.username(userID)) {
             throw "Invalid User ID parameter";
         }
         if (!validate.coordinates(longitude, latitude)) {
@@ -48,7 +48,7 @@ const exportedMethods = {
         }
         if (!validate.dateVisited(dateVisited)) {
             throw "Invalid Data parameter";
-        }
+        }*/
         let location = {
             Coordinates: {
                 type: "Point",
@@ -61,23 +61,34 @@ const exportedMethods = {
         };
         const usersCollection = await users();
         //Check if user exists
-        const user = await usersCollection.findOne({ UserID: ObjectId(userID) });
+        const user = await usersCollection.findOne({ UserID: userID });
         if (user == null) {
             throw "No User with id " + userID;
         }
 
+        console.log(user);
+        let user_locationIDs = user.locationIDs;
         //Add location document to location collection
         const locationsCollection = await locations();
-        const submitLocation = locationsCollection.insertOne(location);
+        const submitLocation = await locationsCollection.insertOne(location);
         if (submitLocation.insertedCount == 0) {
             throw "Could not insert location into database";
         }
+        const location_mongoID = submitLocation.insertedId;
 
+        console.log("location:" + submitLocation.insertedId);
+        //user_locationIDs.push(location_mongoID);
+        //console.log(user_locationIDs);
+        
+
+        
         //Add locationID to users locationID array
-        const addToUser = await usersCollection.update({ userID: userID }, { $push: { locationIDs: submitLocation.insertedID } });
+        const addToUser = await usersCollection.update({ UserID: userID }, { $push: { locationIDs: submitLocation.insertedId } });
         if (addToUser.result.nModified != 1) {
             throw "Could not updates users subdocument array";
         }
+        
+        console.log(addToUser);
         //If the location is covid negative, don't send notifications
         if (!covidStatus) {
             return location;
@@ -109,6 +120,7 @@ const exportedMethods = {
 
         //send alerts to emails
         sendCovidAlert(emails, location.DateVisited, location.Addresss);
+      
         return location;
     },
     async getUserLocations(userID) {
@@ -134,7 +146,7 @@ const exportedMethods = {
         locationDocuments = [];
         //console.log(typeof(user.locations));
 
-        console.log(user);
+        //console.log(user);
 
         for (let user_location of user.locationIDs) {
             console.log(user_location);

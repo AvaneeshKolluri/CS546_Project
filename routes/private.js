@@ -29,7 +29,7 @@ router.post("/userinfo", async (req, res) => {
         //add to the database - create a location id and insert the location inside the location database
         //add the location id into the users database
 
-        //let newLocation = location_database.createLocation(req.session.user['UserID'],response[0].lon,response[0].lat,true,response[0].display_name,req.body.date);
+        let newLocation = location.createLocation(req.session.user['UserID'],response[0].lon,response[0].lat,true,response[0].display_name,req.body.date);
         res.render('partials/location_info',{geo: response[0].display_name, date:req.body.date});
         
 
