@@ -1,92 +1,59 @@
+//Global variable that will contain all the heatmap data
+var heatMapData = [];
 
+//Function to initialize the heatmap with given data in heatMapData array
 function initMap() {
-    /* Data points defined as a mixture of WeightedLocation and LatLng objects */
-var heatMapData = [
-    {location: new google.maps.LatLng(40.74273, -74.0313), weight: 3},
-    {location: new google.maps.LatLng(40.74575, -74.035), weight: 3},
-    {location: new google.maps.LatLng(40.7449, -74.0335), weight: 3},
-    {location: new google.maps.LatLng(40.74438, -74.0337), weight: 3},
-    {location: new google.maps.LatLng(40.7406, -74.0301), weight: 3},
-    {location: new google.maps.LatLng(40.745010, -74.023840), weight: 3},
-];
-
+  //Hoboken is the default center of heatmap
   var hoboken = new google.maps.LatLng(40.745255,-74.034775);
   
+  //Create a new Google Maps
   map = new google.maps.Map(document.getElementById('map'), {
     center: hoboken,
     zoom: 13,
     mapTypeId: 'roadmap'
   });
   
+  //Add a heatmap layer to the Google Map
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatMapData
   });
   heatmap.setMap(map);
 }
 
-// $(function(require) {
-//     var databaseUrl = "Covid_Hotspots";
-//     var collections = ["location"];
-//     var db = require("mongojs").connect(databaseUrl, collections);
-// });
-// let mongojs;
-// define(['require', 'mongojs'], function (require) {
-//     mongojs = require('mongojs');
-// });
-// function getLocations(){
-//     // simple usage for a local db
-//     var db = mongojs('Covid_Hotspots');
-//     var mycollection = db.collection('location');
-//     // var databaseUrl = "Covid_Hotspots";
-//     // var collections = ["location"];
-//     // var db = require("mongojs").connect(databaseUrl, collections);
-//     console.log('test');
-    
-//     db.mycollection.find(function (err, docs) {
-//         console.log(docs);
-//     });
-// }
+//Function to get all locations that were added to the locations list
+function getLocations(){
+  //Retreive the list of locations
+  let ul = document.getElementById('locations-list');
+  let items = ul.getElementsByTagName("li");
 
-// function getLocations(){
-//     const http = require('http');
-//     const MongoClient = require('mongodb').MongoClient;
-//     const assert = require('assert');
-//     const url = 'mongodb://localhost:27017/Covid_Hotspots';
-    
-//     const server = http.createServer(function (request, response) {
-//         getData(function (data) {
-//             response.end(data);
-//         });
-//     });
-    
-//     function getData(callback) {
-//         // Connect to the db
-//         MongoClient.connect(url, function (err, db) {
-//             assert.equal(null, err);
-//             findRestaurants(db, function (data) {
-//                 db.close();
-//                 callback(data);
-//             });
-//         });
-    
-//         const findRestaurants = function (db, callback) {
-//             const cursor = db.collection('locations').find();
-//             const data = [];
-//             cursor.each(function (err, doc) {
-//                 assert.equal(err, null);
-//                 data.push(doc);
-//                 if (doc === null) {
-//                     callback(data);
-//                 }
-//             });
-//             console.log(data);
-//         };
-//     }
-    
-//     server.listen(5155);
-// }
+  //Iterate through each location item in list
+  for (let i = 0; i < items.length; ++i){
+    //Split the address string to get the coordinate part
+    let splitArray = items[i].innerText.split('[');
+    let tempCoords = splitArray[1];
 
-window.onload = function() {
-    initMap();
-    //getLocations();
+    //Split the coordinate to get latitude and longitude
+    let splitCoords = tempCoords.split(',');
+
+    let tempLatitude = parseFloat(splitCoords[1].replace(']', ''));
+    let tempLongitude = parseFloat(splitCoords[0]);
+
+    let tempLocationObj = {location: new google.maps.LatLng(tempLatitude, tempLongitude), weight: 3};
+    heatMapData.push(tempLocationObj);
+  }
 }
+
+//Toggle to show/hide list of hotspots
+function toggleLocationsList() {
+  var x = document.getElementById("heatmap-locations");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+window.addEventListener('load', function() {
+  getLocations();
+  initMap();
+})

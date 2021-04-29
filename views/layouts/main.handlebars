@@ -54,12 +54,24 @@
 
         {{{body}}}
 
-        <h3>Heatmap</h3>
-        <div id="map" style="height: 400px; width: 100%"></div>
+        <h3 class="ml-4">Heatmap</h3>
+        <div id="map" class="mx-auto" style="height: 400px; width: 90%"></div>
 
-        
+        <div class="text-center pt-4">
+            <button type="button" class="btn btn-primary mx-auto" onclick="toggleLocationsList()">Show hotspot addresses</button>
+        </div>	
+
+        <div id="heatmap-locations" class="mt-4" style="display: none;">
+            <ol id='locations-list'>
+                {{#each this.locations}}
+                    <li>{{this.Address}}: [{{this.Coordinates.coordinates}}]</li>
+                {{/each}}
+            </ol>	
+        </div>
+	
+
         <!-- Footer -->
-        <footer class="page-footer font-small bg-dark pt-4 navbar fixed-bottom">
+        <footer class="page-footer font-small bg-dark pt-2 navbar fixed-bottom">
 
         <!-- Footer Elements -->
         <div class="container">
@@ -85,7 +97,6 @@
         
         <!-- Script for our client side -->
         <script src="../../public/js/script.js"></script>
-        <script src="../../public/js/bundle-final.js"></script>
         
         <!-- Google maps api 
         https://developers.google.com/maps/documentation/javascript/heatmaplayer
