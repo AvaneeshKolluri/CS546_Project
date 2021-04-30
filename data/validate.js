@@ -41,7 +41,7 @@ const exportedMethods = {
         }
         return true;
     },
-    userID(userID) {
+    userID(username) {
         if (!username || typeof username !== "string" || username.trim().length == 0) {
             return false;
         }
@@ -72,3 +72,5 @@ const exportedMethods = {
     }
 
 };
+
+module.exports = exportedMethods;

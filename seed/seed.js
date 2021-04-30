@@ -15,7 +15,7 @@ async function main() {
     usersCollection.remove({});
     locationCollection.remove({});
 
-    let password1 = "thisisapassword321";
+    let password1 = "Thisisapassword321";
     let user1 = {
         UserID: "cat123",
         passwordHash: await bcrypt.hash(password1, 16),
@@ -28,7 +28,7 @@ async function main() {
     }
     let firstUserId = user1.UserID;
 
-    let password2 = "hunter2";
+    let password2 = "Hunter23";
     let user2 = {
         UserID: "dog321",
         passwordHash: await bcrypt.hash(password2, 16),

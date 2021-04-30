@@ -4,7 +4,11 @@ const location = require('../data/location');
 
 router.get('/', async (req, res) => {
     let allLocations = await location.getAllLocations();
-    res.render('layouts/main', { locations: allLocations});
+    if (req.session.user) {
+        res.render('layouts/main', { locations: allLocations, UserID: req.session.user.UserID});
+    } else {
+        res.render('layouts/main', { locations: allLocations});
+    }
 });
 
 

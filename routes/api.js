@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const data = require('../data');
 const userData = data.users;
+const validate = data.validate;
 
 router.get("/login", async (req, res) => {
     if (!req.session.user) {
@@ -16,19 +17,13 @@ router.get("/login", async (req, res) => {
 router.post("/login", async (req, res) => {
     const username = req.body.username;
     let pass = req.body.password;
-    if (username === undefined || pass === undefined) {
-        res.status(401);
-        res.render('login', {hasErrors: true});
-        return;
-    }
-    let trimUser = username.trim();
-    if (trimUser === '' || pass === ''){
+    if (!validate.userID(username) || !validate.password(pass)) {
         res.status(401);
         res.render('login', {hasErrors: true});
         return;
     }
 
-    trimUser = trimUser.toLowerCase();
+    let trimUser = username.toLowerCase();
     let user = {};
     try {
         user = await userData.getUser(trimUser);
@@ -44,7 +39,15 @@ router.post("/login", async (req, res) => {
         req.session.user = { UserID: username};
         res.redirect('/private/userinfo');
     }
+});
 
+router.get("/logout", async (req, res) => {
+    if (!req.session.user) {
+        res.redirect("/");
+    } else {
+        req.session.destroy();
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
