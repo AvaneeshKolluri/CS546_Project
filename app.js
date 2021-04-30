@@ -23,6 +23,9 @@ app.use(session({
 }));
 
 app.use('*', (req, res, next) => {
+    if (req.originalUrl === "/private") {
+        next();
+    }
     let authenticated = " (Non-Authenticated User)";
     if (req.session && req.session.user) {
         authenticated = " (Authenticated User)";
@@ -30,6 +33,21 @@ app.use('*', (req, res, next) => {
     console.log("[" + (new Date().toUTCString()) + "] " + req.method + " " + req.originalUrl + authenticated);
     next();
 });
+
+
+app.use('/private', (req, res, next) => {
+    let authenticated = " (Non-Authenticated User)";
+    if (req.session && req.session.user) {
+        authenticated = " (Authenticated User)";
+    }
+    console.log("[" + (new Date().toUTCString()) + "] " + req.method + " " + req.originalUrl + authenticated);
+    if (req.session && req.session.user) {
+        next();
+    } else {
+        res.status(403).redirect("/");
+    }
+});
+
 
 configRoutes(app);
 

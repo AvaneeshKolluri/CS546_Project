@@ -1,5 +1,6 @@
 let { ObjectId } = require('mongodb');
 const emailValidator = require("deep-email-validator");
+const css = require("xss");
 const exportedMethods = {
     //userID(userID) {
     //    if (!userId || typeof userID !== "string" || userID.trim().length == 0) {
@@ -12,6 +13,9 @@ const exportedMethods = {
     //        return false;
     //    }
     //},
+    xssTest(input) {
+        return xss(input) === input;
+    },
     coordinates(longitude, latitude) {
         if (typeof longitude !== "number") {
             return false;
@@ -19,19 +23,19 @@ const exportedMethods = {
         if (typeof latitude !== "number") {
             return false;
         }
-        return true;
+        return this.xssTest(longitude) && this.xssTest(latitude);
     },
     covidStatus(covidStatus) {
         if (!covidStatus || typeof covidStatus !== "boolean") {
             return false;
         }
-        return true;
+        return this.xssTest(covidStatus);
     },
     address(address) {
         if (!address || typeof address !== "string" || address.trim.length == 0) {
             return false;
         }
-        return true;
+        return this.xssTest(address);
     },
     dateVisited(dateVisited) {
         try {
@@ -39,7 +43,7 @@ const exportedMethods = {
         } catch (e) {
             return false;
         }
-        return true;
+        return this.xssTest(dateVisited);
     },
     userID(username) {
         if (!username || typeof username !== "string" || username.trim().length == 0) {
@@ -47,7 +51,7 @@ const exportedMethods = {
         }
         // Alphanumeric string between 6 to 16 characters
         let usernamePattern = /^[a-z0-9]{6,16}$/;
-        return username.match(usernamePattern);
+        return username.match(usernamePattern) && this.xssTest(username);
     },
     password(password) {
         if (!password || typeof password !== "string" || password.trim().length == 0) {
@@ -55,10 +59,13 @@ const exportedMethods = {
         }
         //Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long 
         let passwordPattern = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
-        return password.match(passwordPattern);
+        return password.match(passwordPattern) && this.xssTest(username);
     },
     async email(email) {
         if (!email || typeof email !== "string" || email.trim().length == 0) {
+            return false;
+        }
+        if (!this.xssTest(email)) {
             return false;
         }
         //Checks if email is of valid format

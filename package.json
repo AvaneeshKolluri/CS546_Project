@@ -31,6 +31,7 @@
         "mongoose": "^5.12.6",
         "nodemailer": "^6.5.0",
         "nominatim-geocoder": "^0.1.4",
-        "react-line-graph": "^1.0.6"
+        "react-line-graph": "^1.0.6",
+        "xss": "^1.0.8"
     }
 }
