@@ -1,6 +1,6 @@
 let { ObjectId } = require('mongodb');
 const emailValidator = require("deep-email-validator");
-const css = require("xss");
+const xss = require("xss");
 const exportedMethods = {
     //userID(userID) {
     //    if (!userId || typeof userID !== "string" || userID.trim().length == 0) {
@@ -59,7 +59,7 @@ const exportedMethods = {
         }
         //Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long 
         let passwordPattern = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
-        return password.match(passwordPattern) && this.xssTest(username);
+        return password.match(passwordPattern) && this.xssTest(password);
     },
     async email(email) {
         if (!email || typeof email !== "string" || email.trim().length == 0) {

@@ -4,6 +4,7 @@ let { ObjectId } = require('mongodb');
 const collections = require('../config/mongoCollections');
 const connection = require('../config/mongoConnection');
 const validate = require("./validate");
+const { coordinates } = require('./validate');
 
 const users = collections.users;
 const locations = collections.locations;
@@ -49,6 +50,12 @@ const exportedMethods = {
         if (!validate.dateVisited(dateVisited)) {
             throw "Invalid Data parameter";
         }*/
+        try {
+            longitude = Number(longitude);
+            latitude = Number(latitude);
+        } catch {
+            throw "Could not convert coordinates to numbers";
+        }
         let location = {
             Coordinates: {
                 type: "Point",
@@ -79,30 +86,33 @@ const exportedMethods = {
         console.log("location:" + submitLocation.insertedId);
         //user_locationIDs.push(location_mongoID);
         //console.log(user_locationIDs);
-        
 
-        
+
+
         //Add locationID to users locationID array
         const addToUser = await usersCollection.update({ UserID: userID }, { $push: { locationIDs: submitLocation.insertedId } });
         if (addToUser.result.nModified != 1) {
             throw "Could not updates users subdocument array";
         }
-        
-        console.log(addToUser);
+
+        console.log(addToUser.result.nModified);
         //If the location is covid negative, don't send notifications
         if (!covidStatus) {
             return location;
         }
         //Find locations within 50 meter of the positive location
-        const nearbyLocations = locationsCollection.find({
-            location: {
-                $near: {
-                    $geometry: location.Coordinates,
-                    $minDistance: 50,
-                    $maxDistance: 50
+        await locationsCollection.createIndex({ "Coordinates": "2dsphere" });
+        const nearbyLocations = await locationsCollection.find({
+            Coordinates: {
+                location: {
+                    $near: {
+                        $geometry: location.Coordinates,
+                        $maxDistance: 50
+                    }
                 }
             }
         });
+        console.log(await (nearbyLocations.toArray()));
         //There are no nearby locations
         if (nearbyLocations.length == 0) {
             return location;
@@ -111,6 +121,9 @@ const exportedMethods = {
         let emails = [];
         //Get userIDs from locations
         for (let i = 0; i < nearbyLocations.length; i++) {
+            if (nearbyLocations.UserID == userID) {
+                continue;
+            }
             const getUser = await usersCollection.findOne({ _id: nearbyLocations.UserID });
             if (getUser == null) {
                 throw "Location document has invalid User ID";
@@ -120,7 +133,7 @@ const exportedMethods = {
 
         //send alerts to emails
         sendCovidAlert(emails, location.DateVisited, location.Addresss);
-      
+
         return location;
     },
     async getUserLocations(userID) {
