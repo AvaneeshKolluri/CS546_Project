@@ -14,28 +14,13 @@
         <header>
             <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">Logo</a>
+                    <a class="navbar-brand" href="/"><img src="/public/assets/radar.png" width="40" height="40"></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="fa fa-bars"></span> Your Account
                         </button>
                         <div class="collapse navbar-collapse" id="ftco-nav">
                             <ul class="navbar-nav ml-auto mr-md-3">
                             {{>nav_login}}
-                                <li class="dropdown nav-item d-md-flex align-items-center">
-                                    <a href="#" class="dropdown-toggle nav-link d-flex align-items-center justify-content-center icon-cart p-0" id="dropdown04" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <b class="caret"></b>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown04">
-                                        <a href="#" class="dropdown-item">Action</a>
-                                        <a href="#" class="dropdown-item">Another action</a>
-                                        <a href="#" class="dropdown-item">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item">Separated link</a>
-                                        <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item">One more separated link</a>
-                                    </div>
-                                </li>
                             </ul>
                     </div>
                 </div>
@@ -43,9 +28,9 @@
         </header>
 
         <main class="flex-fill">
-            <h1 class="display-4 text-center">Main page</h1>
+            <h1 class="display-4 text-center">Hoboken Tracking</h1>
             <blockquote class="blockquote text-center">
-                <p class="mb-0">"____" is a tool that lets you see if locations you have been/locations you plan to visit is a COVID hotspot. 
+                <p class="mb-0 container">Hoboken Tracking is a tool that lets you see if locations you have been/locations you plan to visit is a COVID hotspot. 
                     This is a self-reportable platform, so all of our data is coming from users who are fighting the virus together.
                     <p class="font-weight-bold">Let's all work together to flatten the curve!</p>
                 </p>
@@ -54,8 +39,8 @@
 
             {{{body}}}
 
-            <h3 class="ml-4">Heatmap</h3>
-            <div id="map" class="mx-auto" style="height: 400px; width: 90%"></div>
+            <h2 class="ml-4 display-5 text-center mt-4 pb-4">Heatmap</h3>
+            <div id="map" class="mx-auto" style="height: 400px; width: 70%"></div>
 
             <div class="text-center pt-4">
                 <button type="button" class="btn btn-primary mx-auto" onclick="toggleLocationsList()">Show hotspot addresses</button>
@@ -69,18 +54,22 @@
                 </ol>	
             </div>
 
-            <h2 class="display-5 text-center mt-4">Recent Cases</h2>
+            <h2 class="display-5 text-center mt-4 pt-4">Recent Cases Among Our Users</h2>
 
             <div class="container">
-                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                <div id="chartContainer" class="mx-auto" style="height: 400px; width: 100%;"></div>
             </div>
 
-            <div id="confirmed-cases" class="mt-4">
+            <div id="confirmed-cases" class="mt-4" hidden>
                 <ol id='cases-list'>
-                    {{#each this.locations}}
-                        <li>{{this.DateVisited}}</li>
+                    {{#each this.users}}
+                        <li>{{this.covidStatus.reportPositive}}:{{this.covidStatus.dateReported}}</li>
                     {{/each}}
                 </ol>	
+            </div>
+
+            <div id="jersey-cases" class="pt-4 pb-4 text-center">
+                <a href="https://www.nytimes.com/interactive/2021/us/new-jersey-covid-cases.html">Link to NYTimes chart of NJ Cases</a>
             </div>
 
         </main>
