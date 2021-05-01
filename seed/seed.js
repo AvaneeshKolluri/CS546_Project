@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 let { ObjectId } = require('mongodb');
 const collections = require('../config/mongoCollections');
 const connection = require('../config/mongoConnection');
+const { covidStatus } = require('../data/validate');
 
 const users = collections.users;
 const locations = collections.locations;
@@ -20,7 +21,11 @@ async function main() {
         UserID: "cat123",
         passwordHash: await bcrypt.hash(password1, 16),
         email: "example@example.com",
-        locationIDs: []
+        locationIDs: [],
+        covidStatus: {
+            reportPositive: true,
+            dateReported: new Date("04/25/2021")
+        }
     };
     const insertFirstUser = await usersCollection.insertOne(user1);
     if (insertFirstUser.insertedCount != 1) {
@@ -33,7 +38,11 @@ async function main() {
         UserID: "dog321",
         passwordHash: await bcrypt.hash(password2, 16),
         email: "test@test.com",
-        locationIDs: []
+        locationIDs: [],
+        covidStatus: {
+            reportPositive: true,
+            dateReported: new Date("04/25/2021")
+        }
     };
     const insertSecondUser = await usersCollection.insertOne(user2);
     if (insertSecondUser.insertedCount != 1) {
@@ -47,7 +56,11 @@ async function main() {
         UserID: "HiHelloQwerty",
         passwordHash: await bcrypt.hash(password3, 16),
         email: "123@123gmail.com",
-        locationIDs: []
+        locationIDs: [],
+        covidStatus: {
+            reportPositive: true,
+            dateReported: new Date("04/01/2021")
+        }
     };
     const insertThirdUser = await usersCollection.insertOne(user3);
     if (insertThirdUser.insertedCount != 1) {
