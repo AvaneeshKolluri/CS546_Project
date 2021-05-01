@@ -57,6 +57,12 @@ let methods = {
         }
 
 		return user;
-	}
+	},
+
+	async getAllUsers() {
+        const usersCollection = await users();
+        const usersArray = await usersCollection.find({}).toArray();
+        return usersArray;
+    }
 };
 module.exports = methods;
