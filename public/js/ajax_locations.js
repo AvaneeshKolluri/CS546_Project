@@ -18,12 +18,11 @@
 		let state_val = state.val();
 		let town_val = town.val();
 		let date_val = date.val();
-		console.log(typeof(date_val));
+		
 
 		if (new Date(date_val) > new Date()){
 			error_div.append($('<p></p>').text("Date Has Not Yet Occured."));
 			error_div.addClass("error-userinfo");
-
 		}else{
 			var requestConfig = {
 			method: "POST",

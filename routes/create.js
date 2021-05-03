@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 	
 	let username = req.body.username;
  	let password = req.body.password;
-	 let email = req.body.email;
+	let email = req.body.email;
 	 
 	 // validate email and pw
 	 // check if userID exists
