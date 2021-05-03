@@ -4,8 +4,15 @@ const users = require('../data/users');
 
 
 router.get('/', async (req, res) => {  
+	if (req.session.user) {
+        //this needs to be updated with navbar and a private page
+        res.redirect('/');
+	}
+	else{
+		res.render("create");
+	}
+
 	
-	res.render("create");
   
 
 });
@@ -16,7 +23,10 @@ router.post('/', async (req, res) => {
 	
 	let username = req.body.username;
  	let password = req.body.password;
- 	let email = req.body.email;
+	 let email = req.body.email;
+	 
+	 // validate email and pw
+	 // check if userID exists
  	
  	if (!email) throw 'You must provide an email.';
 	if (!username) throw 'You must provide an username.';
