@@ -8,23 +8,24 @@
 	let town = $('#town');
 	let date = $('#date');
 	let user_locations = $('#user_locations');
-
-	console.log("IM HERE");
-	console.log(form_submit);
+	let error_div = $('#location-errors');
+	error_div.empty();
 
 	form_submit.submit(function(event) {
 		event.preventDefault();
-		console.log("IM HERE");
-		
+		error_div.empty();
 		let street_val = street.val();
 		let state_val = state.val();
 		let town_val = town.val();
 		let date_val = date.val();
-		console.log(street_val);
+		console.log(typeof(date_val));
 
-		
-		
-		var requestConfig = {
+		if (new Date(date_val) > new Date()){
+			error_div.append($('<p></p>').text("Date Has Not Yet Occured."));
+			error_div.addClass("error-userinfo");
+
+		}else{
+			var requestConfig = {
 			method: "POST",
 			url: "/private/userinfo",
 			contentType: "application/json",
@@ -34,16 +35,15 @@
 				town: town_val,
 				date: date_val
 			})
-		};
+			};
 
-		$.ajax(requestConfig).then(function(responseMessage) {
-			
-			user_locations.append(responseMessage);
-			console.log(responseMessage);
-			
-		});
+			$.ajax(requestConfig).then(function(responseMessage) {
+				user_locations.append(responseMessage);
+				console.log(responseMessage);
+				
+			});
+		}
 		
-
 	});
 	
 

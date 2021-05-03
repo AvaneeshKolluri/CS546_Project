@@ -23,13 +23,25 @@ router.get("/userinfo", async(req, res) => {
 router.post("/userinfo", async(req, res) => {
     console.log(req.body);
     //must validate the form submission here
+    
+    let date = new Date(req.body.date);
+    console.log(typeof(date));
+    console.log(date);
+
+   
+
+    /*if (date > new Date()){
+        //res.status(400).json({ error: 'You must provide a valid dateOfReviewthat is before today.' });
+        console.log("Date Has Not Yet Occured.");
+        throw "Date Has Not Yet Occured.";
+    }*/
     geocoder.search({ street: req.body.street, city: req.body.town, state: req.body.state }).then((response) => {
         console.log("lat: " + response[0].lat);
         console.log("lon: " + response[0].lon);
         //add to the database - create a location id and insert the location inside the location database
         //add the location id into the users database
 
-        let newLocation = location.createLocation(req.session.user['UserID'], response[0].lon, response[0].lat, true, response[0].display_name, req.body.date);
+        let newLocation = location.createLocation(req.session.user['UserID'], response[0].lon, response[0].lat, true, response[0].display_name,date);
         res.render('partials/location_info', { geo: response[0].display_name, date: req.body.date });
 
 

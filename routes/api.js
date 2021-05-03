@@ -17,11 +17,11 @@ router.get("/login", async (req, res) => {
 router.post("/login", async (req, res) => {
     const username = req.body.username;
     let pass = req.body.password;
-    if (!validate.userID(username) || !validate.password(pass)) {
+    /*if (!validate.userID(username) || !validate.password(pass)) {
         res.status(401);
         res.render('login', {hasErrors: true});
         return;
-    }
+    }*/
 
     let trimUser = username.toLowerCase();
     let user = {};

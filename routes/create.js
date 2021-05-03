@@ -4,7 +4,7 @@ const users = require('../data/users');
 
 
 router.get('/', async (req, res) => {  
-
+	
 	res.render("create");
   
 
