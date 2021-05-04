@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../data/users');
-
+const valid = require('../data/validate');
 
 router.get('/', async (req, res) => {  
 	if (req.session.user) {
@@ -28,27 +28,26 @@ router.post('/', async (req, res) => {
 	 // validate email and pw
 	 // check if userID exists
  	
- 	if (!email) throw 'You must provide an email.';
-	if (!username) throw 'You must provide an username.';
-	if (!password) throw 'You must provide an password.';
-
-	if (typeof(email) != 'string' || email.trim().length === 0 ){
-		throw 'You must provide a email that is more than just empty spaces.';
-	}
-	if (typeof(username) != 'string' || username.trim().length === 0 ){
-		throw 'You must provide a username that is more than just empty spaces.';
-	}
-
-	if (typeof(password) != 'string' || password.trim().length === 0 ){
-		throw 'You must provide a password that is more than just empty spaces.';
-	}
+ 	
 
  	try{
+		if(valid.userID(username) == false){
+			throw 'Username should be an alphanumeric string between 6 to 16 characters';
+		}
+	
+		if(valid.password(password) == false){
+			throw 'Password should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long';
+		}
+	
+		if(valid.email(email) == false){
+			throw 'Email should be of the proper email format';
+		}
  		let newUser = await users.Create(email,username,password);
  		console.log(newUser);
  		res.redirect("/");
  	}catch(e){
- 		res.status(404).json(e);
+		 res.status(400).render('create',{error:e})
+ 		//res.status(404).json(e);
  	}
 
 });

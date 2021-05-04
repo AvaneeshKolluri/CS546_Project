@@ -5,6 +5,10 @@
 <hr>
 
 
+<div id="signup-error">
+    <p> {{this.error}} </p>
+</div>
+
 <form action ="/create" id="create-acct" method="POST">
     
     <label for="email" class="bold-text"> <b>Email:</b> </label>
@@ -19,3 +23,5 @@
 
     <button type="submit"> Create Account </button>
 </form>
+
+<script src="/public/js/sign_up.js"></script>

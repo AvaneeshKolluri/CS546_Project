@@ -49,6 +49,9 @@ const exportedMethods = {
         if (!username || typeof username !== "string" || username.trim().length == 0) {
             return false;
         }
+        if(username.trim().length < 6 || username.trim().length > 16){
+            return false;
+        }
         // Alphanumeric string between 6 to 16 characters
         let usernamePattern = /^[a-z0-9]{6,16}$/;
         return username.match(usernamePattern) && this.xssTest(username);
@@ -58,6 +61,23 @@ const exportedMethods = {
             return false;
         }
         //Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long 
+        if(password.length < 8){
+            return false;
+        }
+        var localF = /\d/;
+        if(localF.test(password) == false){
+            return false;
+        }
+        var hasUpper = false;
+        for(i=0; i< password.length; i++){
+            if(password[i] == password[i].toUpperCase() && password[i] != password[i].toLowerCase()){
+                hasUpper = true;
+            }
+        }
+        if(hasUpper == false){
+            return false;
+        }
+
         let passwordPattern = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
         return password.match(passwordPattern) && this.xssTest(password);
     },
