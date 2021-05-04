@@ -1,7 +1,9 @@
 <h1>Login to your COVID HotSpot Account</h1>
+<div id="login-errors">
 {{#if hasErrors}}
     <p>Invalid username and/or password</p>
 {{/if}}
+</div>
 <form action ="/api/login" id="login-form" method="POST">
     
     <label for="username" id="username-label">Username:</label>
@@ -14,3 +16,6 @@
 </form>
 
 <a  href="/"><button>Home Page</button></a>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="/public/js/login_form.js"></script>
