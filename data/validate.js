@@ -26,13 +26,13 @@ const exportedMethods = {
         return this.xssTest(longitude) && this.xssTest(latitude);
     },
     covidStatus(covidStatus) {
-        if (!covidStatus || typeof covidStatus !== "boolean") {
+        if (!(covidStatus) || (typeof(covidStatus) != "boolean")) {
             return false;
         }
         return this.xssTest(covidStatus);
     },
     address(address) {
-        if (!address || typeof address !== "string" || address.trim.length == 0) {
+        if (!address || typeof address !== "string" || address.trim().length == 0) {
             return false;
         }
         return this.xssTest(address);

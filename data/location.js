@@ -35,21 +35,23 @@ function sendCovidAlert(emails, address, date) {
 }
 const exportedMethods = {
     async createLocation(userID, longitude, latitude, covidStatus, Address, dateVisited) {
-        /*if (!validate.username(userID)) {
-            throw "Invalid User ID parameter";
+        
+        if (!(validate.userID(userID))) {
+            throw "Invalid User ID parameter.";
         }
-        if (!validate.coordinates(longitude, latitude)) {
-            throw "Invalid coordinate parameters";
+        /*if (!(validate.coordinates(longitude, latitude))) {
+            throw "Invalid coordinate parameter.";
         }
-        if (!validate.covidStatus(covidStatus)) {
-            throw "Invalid covidStatus parameter"
-        }
-        if (!validate.address(Address)) {
-            throw "Invalid parameters";
-        }
-        if (!validate.dateVisited(dateVisited)) {
-            throw "Invalid Data parameter";
+        if (!(validate.covidStatus(covidStatus))) {
+            throw "Invalid covidStatus parameter."
         }*/
+        if (!(validate.address(Address))) {
+            throw "Invalid Address parameter.";
+        }
+        if (!(validate.dateVisited(dateVisited))) {
+            throw "Invalid Data Visited parameter.";
+        }
+
         try {
             longitude = Number(longitude);
             latitude = Number(latitude);
@@ -64,18 +66,18 @@ const exportedMethods = {
             userID: userID,
             covidStatus: covidStatus,
             Address: Address,
-            DateVisited: dateVisited
+            DateVisited: new Date(dateVisited)
         };
         const usersCollection = await users();
-        //Check if user exists
+        
         const user = await usersCollection.findOne({ UserID: userID });
         if (user == null) {
             throw "No User with id " + userID;
         }
 
         console.log(user);
-        let user_locationIDs = user.locationIDs;
-        //Add location document to location collection
+        
+        
         const locationsCollection = await locations();
         const submitLocation = await locationsCollection.insertOne(location);
         if (submitLocation.insertedCount == 0) {
@@ -83,12 +85,8 @@ const exportedMethods = {
         }
         const location_mongoID = submitLocation.insertedId;
 
-        console.log("location:" + submitLocation.insertedId);
-        //user_locationIDs.push(location_mongoID);
-        //console.log(user_locationIDs);
-
-
-
+        console.log("location mongo id:" + submitLocation.insertedId);
+     
         //Add locationID to users locationID array
         const addToUser = await usersCollection.update({ UserID: userID }, { $push: { locationIDs: submitLocation.insertedId } });
         if (addToUser.result.nModified != 1) {
@@ -100,6 +98,7 @@ const exportedMethods = {
         if (!covidStatus) {
             return location;
         }
+        
         //Find locations within 50 meter of the positive location
         await locationsCollection.createIndex({ "Coordinates": "2dsphere" });
         const nearbyLocations = await locationsCollection.find({
@@ -133,23 +132,16 @@ const exportedMethods = {
 
         //send alerts to emails
         sendCovidAlert(emails, location.DateVisited, location.Addresss);
-
+    
         return location;
     },
     async getUserLocations(userID) {
 
 
-        /*if (!validate.userID(userID)) {
-            throw "Invalid userID parameter";
-        }*/
-        //const toMongoID = ObjectId(userID);
-        //get the ObjectID by searching through
-
-
-        //const toMongoID = req.session.userid._id;
-
-
-
+        if (!(validate.userID(userID))) {
+            throw "Invalid User ID parameter.";
+        }
+        
         const usersCollection = await users();
         const user = await usersCollection.findOne({ UserID: userID });
         if (user == null) {
@@ -157,13 +149,8 @@ const exportedMethods = {
         }
         const locationsCollection = await locations();
         locationDocuments = [];
-        //console.log(typeof(user.locations));
-
-        //console.log(user);
 
         for (let user_location of user.locationIDs) {
-            console.log(user_location);
-
             const locationDocument = await locationsCollection.findOne({ _id: user_location });
             if (locationDocument == null) {
                 throw "No location document with id " + user_location;
