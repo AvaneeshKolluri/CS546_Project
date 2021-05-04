@@ -30,12 +30,6 @@ router.post("/userinfo", async(req, res) => {
         if (req.body.street.trim().length === 0){
             throw "Must Enter A Valid Street Address."
         }
-        if (req.body.town.trim().length === 0){
-            throw "Must Enter A Valid Town."
-        }
-        if (req.body.state.trim().length === 0){
-            throw "Must Enter A Valid State."
-        }
         if (req.body.date.length === 0){
             throw "Must Enter A Valid Date."
         }
@@ -44,7 +38,7 @@ router.post("/userinfo", async(req, res) => {
         }
         let date = new Date(req.body.date);
 
-        geocoder.search({ street: req.body.street, city: req.body.town, state: req.body.state }).then((response) => {
+        geocoder.search({ street: req.body.street, city: "Hoboken", state: "New Jersey" }).then((response) => {
             //console.log("lat: " + response[0].lat);
             //console.log("lon: " + response[0].lon);
             //add to the database - create a location id and insert the location inside the location database
