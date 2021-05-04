@@ -38,6 +38,10 @@ router.post('/', async (req, res) => {
 		if (existUsername) {
 			throw 'Username is taken, try a different userID'
 		}
+		const existEmail = await userCollection.findOne({ email: email});
+		if (existEmail) {
+			throw 'Email is taken, please login using your current account or with a new email'
+		}
 
 
 		if(valid.userID(username) == false){
