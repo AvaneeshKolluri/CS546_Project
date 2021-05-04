@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const users = require('../data/users');
 const valid = require('../data/validate');
+const mongoCollections = require('../config/mongoCollections');
+const usersMDB = mongoCollections.users;
 
 router.get('/', async (req, res) => {  
 	if (req.session.user) {
@@ -31,6 +33,13 @@ router.post('/', async (req, res) => {
  	
 
  	try{
+		const userCollection = await usersMDB();
+		const existUsername = await userCollection.findOne({ UserID: username});
+		if (existUsername) {
+			throw 'Username is taken, try a different userID'
+		}
+
+
 		if(valid.userID(username) == false){
 			throw 'Username should be an alphanumeric string between 6 to 16 characters';
 		}
