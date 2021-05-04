@@ -1,18 +1,6 @@
-let { ObjectId } = require('mongodb');
 const emailValidator = require("deep-email-validator");
 const xss = require("xss");
 const exportedMethods = {
-    //userID(userID) {
-    //    if (!userId || typeof userID !== "string" || userID.trim().length == 0) {
-    //        return false;
-    //    }
-    //    try {
-    //        ObjectId(userID);
-    //        return true;
-    //    } catch (e) {
-    //        return false;
-    //    }
-    //},
     xssTest(input) {
         return xss(input) === input;
     },
@@ -49,7 +37,7 @@ const exportedMethods = {
         if (!username || typeof username !== "string" || username.trim().length == 0) {
             return false;
         }
-        if(username.trim().length < 6 || username.trim().length > 16){
+        if (username.trim().length < 6 || username.trim().length > 16) {
             return false;
         }
         // Alphanumeric string between 6 to 16 characters
@@ -61,25 +49,25 @@ const exportedMethods = {
             return false;
         }
         //Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long 
-        if(password.length < 8){
+        if (password.length < 8) {
             return false;
         }
         var localF = /\d/;
-        if(localF.test(password) == false){
+        if (localF.test(password) == false) {
             return false;
         }
         var hasUpper = false;
-        for(i=0; i< password.length; i++){
-            if(password[i] == password[i].toUpperCase() && password[i] != password[i].toLowerCase()){
+        for (i = 0; i < password.length; i++) {
+            if (password[i] == password[i].toUpperCase() && password[i] != password[i].toLowerCase()) {
                 hasUpper = true;
             }
         }
-        if(hasUpper == false){
+        if (hasUpper == false) {
             return false;
         }
 
         let passwordPattern = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
-        return password.match(passwordPattern) && this.xssTest(password);
+        return password.match(passwordPattern) != null && this.xssTest(password);
     },
     async email(email) {
         if (!email || typeof email !== "string" || email.trim().length == 0) {

@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 let { ObjectId } = require('mongodb');
 const collections = require('../config/mongoCollections');
 const connection = require('../config/mongoConnection');
-const { covidStatus } = require('../data/validate');
+const Nominatim = require('nominatim-geocoder');
+const geocoder = new Nominatim();
 
 const users = collections.users;
 const locations = collections.locations;
@@ -69,147 +70,69 @@ async function main() {
 
     let thirdUserId = user3.UserID;
 
-    let location1 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.0313, 40.74273]
-        },
-        UserID: firstUserId,
-        CovidStatus: true,
-        Address: "504 Garden Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/25/2021")
-    };
-    let location2 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.035, 40.74575]
-        },
-        UserID: firstUserId,
-        CovidStatus: false,
-        Address: "619 Adams Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/11/2021")
-    };
-
-    let location3 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.0335, 40.7449]
-        },
-        UserID: firstUserId,
-        CovidStatus: false,
-        Address: "614 Clinton Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("05/01/2021")
-    };
-
-    let location4 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.0337, 40.74438]
-        },
-        UserID: secondUserId,
-        CovidStatus: false,
-        Address: "600 Clinton Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/01/2021")
-    };
-
-    let location5 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.0301, 40.7406]
-        },
-        UserID: secondUserId,
-        CovidStatus: false,
-        Address: "314 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/21/2021")
-    };
-
-    let location6 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.023840, 40.745010]
-        },
-        UserID: secondUserId,
-        CovidStatus: false,
-        Address: "1 Castle Point Terrace, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/15/2021")
-    };
-
-    let location7 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.030200, 40.738550]
-        },
-        UserID: thirdUserId,
-        CovidStatus: true,
-        Address: "135 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/13/2021")
-    };
-
-    let location8 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.030800, 40.737190]
-        },
-        UserID: thirdUserId,
-        CovidStatus: true,
-        Address: "95 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/01/2021")
-    };
-    let location9 = {
-        _id: ObjectId(),
-        Coordinates: {
-            type: "Point",
-            coordinates: [-74.030800, 40.737190]
-        },
-        UserID: thirdUserId,
-        CovidStatus: true,
-        Address: "95 Washington Street, Hoboken, Hudson County, New Jersey, 07030, United States of America",
-        DateVisited: new Date("04/01/2021")
-    };
-    let locationList = [location1, location2, location3, location4, location5, location6, location7, location8, location9];
-    let user1LocationIDs = [location1._id, location2._id, location3._id];
-    let user2LocationIDs = [location4._id, location5._id, location6._id];
-    let user3LocationIDs = [location7._id, location8._id, location9._id];
-
+    let userList = [firstUserId, secondUserId, thirdUserId];
+    let locationList = [];
+    let streets = ["Washington Street", "Sinatra Drive", "River Street", "Court Street", "Bloomfield Street, Garden Street", "Park Avenue", "Willow Avenue",
+        "Clinton Street", "Grand Street", "Adams Street", "Madison Street", "Monroe Street"
+    ];
+    let numAddresses = 25;
+    for (let i = 0; i < numAddresses; i++) {
+        console.log("Generating address " + (i + 1) + "/" + numAddresses);
+        let date = new Date();
+        date.setDate(date.getDate() - Number(Math.round(Math.random() * 60)));
+        let l = {
+            _id: ObjectId(),
+            Coordinates: {
+                type: "Point",
+                coordinates: []
+            },
+            UserID: userList[Math.round(Math.random() * 2)],
+            Address: "",
+            DateVisited: date
+        };
+        let number = Math.round(Math.random() * (1500));
+        let street = streets[Math.round(Math.random() * (streets.length - 1))];
+        let address = number + " " + street;
+        let response = await geocoder.search({
+            street: address,
+            city: "Hoboken",
+            state: "New Jersey"
+        });
+        let long = Number(response[0].lon);
+        let lat = Number(response[0].lat);
+        l.Coordinates.coordinates = [long, lat];
+        l.Address = address + ", Hoboken, New Jersey";
+        locationList.push(l);
+    }
     const addLocationListData = await locationCollection.insert(locationList);
-    if (addLocationListData.insertedCount != 9) {
+    if (addLocationListData.insertedCount != numAddresses) {
         throw addLocationListData.insertedCount + " were inserted instead of 9";
     }
-
-    const addUser1Locations = await usersCollection.update({ UserID: firstUserId }, { $addToSet: { locationIDs: { $each: user1LocationIDs } } });
-    if (addUser1Locations.result.nModified != 1) {
-        throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
+    for (let i = 0; i < numAddresses; i++) {
+        let l = locationList[i];
+        let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
+        if (addLocation.result.nModified != 1) {
+            throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
+        }
     }
-
-    const addUser2Locations = await usersCollection.update({ UserID: secondUserId }, { $addToSet: { locationIDs: { $each: user2LocationIDs } } });
-    if (addUser2Locations.result.nModified != 1) {
-        throw "Expected modified: " + 1 + " Actual modified: " + addUser2Locations.result.nModified;
+    console.log(`First user credentials: ${user1.UserID} : ${password1} \nLocations:`);
+    for (let i = 0; i < numAddresses; i++) {
+        if (locationList[i].UserID == user1.UserID) {
+            console.log("\t" + locationList[i].Address);
+        }
     }
-
-    const addUser3Locations = await usersCollection.update({ UserID: thirdUserId }, { $addToSet: { locationIDs: { $each: user3LocationIDs } } });
-    if (addUser3Locations.result.nModified != 1) {
-        throw "Expected modified: " + 1 + " Actual modified: " + addUser3Locations.result.nModified;
+    console.log(`Second user credentials: ${user2.UserID} : ${password2} \nLocations:`);
+    for (let i = 0; i < numAddresses; i++) {
+        if (locationList[i].UserID == user2.UserID) {
+            console.log("\t" + locationList[i].Address);
+        }
     }
-
-    console.log(`First user credentials: ${user1.UserID} : ${password1}`);
-    console.log(`${user1.UserID} visited the following addresses: `);
-    console.log("\t" + location1.Address + " on " + location1.DateVisited + "\n\t" + location2.Address + " on " + location2.DateVisited + "\n\t" + location3.Address + " on " + location3.DateVisited);
-
-    console.log(`Second user credentials: ${user2.UserID} : ${password2}`);
-    console.log(`${user2.UserID} visited the following addresses: `);
-    console.log("\t" + location4.Address + " on " + location4.DateVisited + "\n\t" + location5.Address + " on " + location5.DateVisited + "\n\t" + location6.Address + " on " + location6.DateVisited);
-
-    console.log(`Third user credentials: ${user3.UserID} : ${password3}`);
-    console.log(`${user3.UserID} visited the following addresses: `);
-    console.log("\t" + location7.Address + " on " + location7.DateVisited + "\n\t" + location8.Address + " on " + location8.DateVisited + "\n\t" + location9.Address + " on " + location9.DateVisited);
+    console.log(`Third user credentials: ${user3.UserID} : ${password3} \nLocations:`);
+    for (let i = 0; i < numAddresses; i++) {
+        if (locationList[i].UserID == user3.UserID) {
+            console.log("\t" + locationList[i].Address);
+        }
+    }
 
     const db = await connection();
     await db.serverConfig.close();

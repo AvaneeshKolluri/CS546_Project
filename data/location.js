@@ -35,7 +35,7 @@ function sendCovidAlert(emails, address, date) {
 }
 const exportedMethods = {
     async createLocation(userID, longitude, latitude, covidStatus, Address, dateVisited) {
-        
+
         if (!(validate.userID(userID))) {
             throw "Invalid User ID parameter.";
         }
@@ -69,15 +69,15 @@ const exportedMethods = {
             DateVisited: new Date(dateVisited)
         };
         const usersCollection = await users();
-        
+
         const user = await usersCollection.findOne({ UserID: userID });
         if (user == null) {
             throw "No User with id " + userID;
         }
 
         console.log(user);
-        
-        
+
+
         const locationsCollection = await locations();
         const submitLocation = await locationsCollection.insertOne(location);
         if (submitLocation.insertedCount == 0) {
@@ -86,7 +86,7 @@ const exportedMethods = {
         const location_mongoID = submitLocation.insertedId;
 
         console.log("location mongo id:" + submitLocation.insertedId);
-     
+
         //Add locationID to users locationID array
         const addToUser = await usersCollection.update({ UserID: userID }, { $push: { locationIDs: submitLocation.insertedId } });
         if (addToUser.result.nModified != 1) {
@@ -98,7 +98,7 @@ const exportedMethods = {
         if (!covidStatus) {
             return location;
         }
-        
+
         //Find locations within 50 meter of the positive location
         await locationsCollection.createIndex({ "Coordinates": "2dsphere" });
         const nearbyLocations = await locationsCollection.find({
@@ -113,7 +113,7 @@ const exportedMethods = {
         });
         console.log(await (nearbyLocations.toArray()));
         //There are no nearby locations
-        if (nearbyLocations.length == 0) {
+        if (nearbyLocations.length < 5) {
             return location;
         }
 
@@ -132,7 +132,7 @@ const exportedMethods = {
 
         //send alerts to emails
         sendCovidAlert(emails, location.DateVisited, location.Addresss);
-    
+
         return location;
     },
     async getUserLocations(userID) {
@@ -141,7 +141,7 @@ const exportedMethods = {
         if (!(validate.userID(userID))) {
             throw "Invalid User ID parameter.";
         }
-        
+
         const usersCollection = await users();
         const user = await usersCollection.findOne({ UserID: userID });
         if (user == null) {
@@ -155,6 +155,10 @@ const exportedMethods = {
             if (locationDocument == null) {
                 throw "No location document with id " + user_location;
             }
+            let date = locationDocument.DateVisited.getDate();
+            let month = locationDocument.DateVisited.getMonth();
+            let year = locationDocument.DateVisited.getFullYear();
+            locationDocument.DateVisited = month + "/" + date + "/" + year;
             locationDocuments.push(locationDocument);
 
         }
