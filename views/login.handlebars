@@ -1,21 +1,33 @@
-<h1>Login to your COVID HotSpot Account</h1>
-<div id="login-errors">
-{{#if hasErrors}}
-    <p>Invalid username and/or password</p>
-{{/if}}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+
+<div class="login-container">
+    <h1 class="login-header">Login to Hoboken Tracking</h1>
+    <div id="login-errors">
+    {{#if hasErrors}}
+        <p>Invalid username and/or password</p>
+    {{/if}}
+    </div>
+    <form action ="/api/login" id="login-form" method="POST">
+        <div class="col-auto">
+            <label for="username" id="username-label">Username</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" required>
+        </div>
+        <div class="col-auto">
+            <label for="password" id="password-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
 </div>
-<form action ="/api/login" id="login-form" method="POST">
-    
-    <label for="username" id="username-label">Username:</label>
-    <input type="text" name="username" id="username" placeholder="Enter Username" required>
 
-    <label for="password" id="password-label">Password:</label>
-    <input type="password" name="password" id="password" placeholder="Enter Password" required>
-
-    <button type="submit">Login</button>
-</form>
-
-<a  href="/"><button>Home Page</button></a>
+<div class="home-button-div">
+    <a  href="/"><button class="btn btn-secondary">Home Page</button></a>
+</div>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="/public/js/login_form.js"></script>

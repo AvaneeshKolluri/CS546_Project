@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const xss = require('xss');
 const data = require('../data');
 const userData = data.users;
 const validate = data.validate;
@@ -15,12 +16,11 @@ router.get("/login", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const username = req.body.username;
-    let pass = req.body.password;
+    const username = xss(req.body.username);
+    let pass = xss(req.body.password);
     
     if (!validate.userID(username) || !validate.password(pass)) {
         res.status(401);
-        console.log('test2');
         res.render('login', {hasErrors: true});
         return;
     }

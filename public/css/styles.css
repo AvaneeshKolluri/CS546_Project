@@ -7,3 +7,29 @@
 	color:red;
 	font-weight:bold;
 }
+
+#login-errors {
+	color: #ee0000;
+	text-align: center;
+}
+
+.login-header {
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 2px inset;
+}
+
+.login-container {
+	margin: 30px auto;
+	width: 50%;
+	padding: 20px;
+	border: 2px solid;
+	border-color: blue;
+	border-radius: 4px;
+	box-shadow: 4px 8px 10px 5px;
+}
+
+.home-button-div {
+	margin: auto;
+	width: 100px;
+}
