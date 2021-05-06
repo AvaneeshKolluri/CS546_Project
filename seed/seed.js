@@ -79,7 +79,7 @@ async function main() {
     for (let i = 0; i < numAddresses; i++) {
         console.log("Generating address " + (i + 1) + "/" + numAddresses);
         let date = new Date();
-        date.setDate(date.getDate() - Number(Math.round(Math.random() * 60)));
+        date.setDate(date.getDate() - Number(Math.round(Math.random() * 30)));
         let l = {
             _id: ObjectId(),
             Coordinates: {
@@ -133,7 +133,7 @@ async function main() {
             console.log("\t" + locationList[i].Address);
         }
     }
-
+    console.log("Generated " + numAddresses + " locations from the last month");
     const db = await connection();
     await db.serverConfig.close();
 }

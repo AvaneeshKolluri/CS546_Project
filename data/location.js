@@ -171,6 +171,17 @@ const exportedMethods = {
         //You need toArray() at the end b/c without it you return a cursor to the result set of a query
         const locationsArray = await locationsCollection.find({}).toArray();
         return locationsArray;
+    },
+    async deleteOldLocations() {
+        const locationsCollection = await locations();
+        let allLocations = await locationsCollection.find({}).toArray();
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() - 14);
+        await locationsCollection.remove({
+            DateVisited: {
+                $lte: expiryDate
+            }
+        });
     }
 };
 
