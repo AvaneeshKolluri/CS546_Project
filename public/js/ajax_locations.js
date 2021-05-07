@@ -34,7 +34,7 @@
 
 			var requestConfig = {
 				method: "POST",
-				url: "/private/userinfo",
+				url: "/userinfo",
 				contentType: "application/json",
 				data: JSON.stringify({
 					street: street_val,

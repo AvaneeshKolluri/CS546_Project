@@ -7,7 +7,7 @@ const createRoutes = require('./create');
 
 const constructorMethod = (app) => {
   app.use('/', mainRoutes);
-  app.use('/private', privateRoutes);
+  app.use('/userinfo', privateRoutes);
   app.use('/public', publicRoutes);
   app.use('/api', apiRoutes);
   app.use('/create', createRoutes);

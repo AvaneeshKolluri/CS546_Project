@@ -7,24 +7,16 @@ const geocoder = new Nominatim();
 
 router.get("/", async(req, res) => {
     if (req.session.user) {
-        res.render('layouts/main');
-        return;
-    }
-    //do i have to add another case here, i get errors if i do
-});
-router.get("/userinfo", async(req, res) => {
-    if (req.session.user) {
-        
         let user_locations = await location.getUserLocations(req.session.user['UserID']);
         res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations });
         return;
     } else {
         return res.redirect('/');
     }
-
 });
 
-router.post("/userinfo", async(req, res) => {
+
+router.post("/", async(req, res) => {
     console.log(req.body);
     //must validate the form submission here
 
