@@ -104,6 +104,8 @@ async function main() {
         l.Address = address + ", Hoboken, New Jersey";
         locationList.push(l);
     }
+
+    //console.log(locationList);
     const addLocationListData = await locationCollection.insert(locationList);
     if (addLocationListData.insertedCount != numAddresses) {
         throw addLocationListData.insertedCount + " were inserted instead of 9";

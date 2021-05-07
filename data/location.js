@@ -150,6 +150,8 @@ const exportedMethods = {
         const locationsCollection = await locations();
         locationDocuments = [];
 
+        //console.log(user.locationIDs);
+
         for (let user_location of user.locationIDs) {
             const locationDocument = await locationsCollection.findOne({ _id: user_location });
             if (locationDocument == null) {

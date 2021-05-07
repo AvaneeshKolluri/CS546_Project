@@ -14,6 +14,7 @@ router.get("/", async(req, res) => {
 });
 router.get("/userinfo", async(req, res) => {
     if (req.session.user) {
+        
         let user_locations = await location.getUserLocations(req.session.user['UserID']);
         res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations });
         return;
