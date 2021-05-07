@@ -20,7 +20,7 @@
 			let email = e.val();
 
 			//validate all fields
-
+			
 			if (!username || typeof username !== "string" || username.trim().length == 0) {
 				throw 'Username should be an alphanumeric string between 6 to 16 characters';
 			}

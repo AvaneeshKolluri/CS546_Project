@@ -8,9 +8,10 @@ const geocoder = new Nominatim();
 router.get("/", async(req, res) => {
     if (req.session.user) {
         let user_locations = await location.getUserLocations(req.session.user['UserID']);
-        res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations });
+        res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, isError:false ,error:null });
         return;
     } else {
+        //this is because you are not logged in
         return res.redirect('/');
     }
 });
@@ -35,14 +36,12 @@ router.post("/", async(req, res) => {
         }
         //let date = new Date(req.body.date);
         geocoder.search({ street: req.body.street, city: "Hoboken", state: "New Jersey" }).then((response) => {
-            //console.log("lat: " + response[0].lat);
-            //console.log("lon: " + response[0].lon);
 
             //The geocoder's display_name field sometimes doesn't give the address number, 
             //so I changed it to the address the user submitted
             let address = req.body.street + ", Hoboken, " + "New Jersey";
             let newLocation = location.createLocation(req.session.user['UserID'], Number(response[0].lon), Number(response[0].lat), true, response[0].display_name, req.body.date);
-            res.render('partials/location_info', { geo: address, date: req.body.date });
+            res.render('partials/location_info', { geo: address, date: req.body.date ,isError: false,error: null});
             return;
         }).catch((error) => {
             throw "Invalid Hoboken Location. Please Try Again. ";
@@ -50,9 +49,11 @@ router.post("/", async(req, res) => {
 
 
     } catch (e) {
-        //render a page with error
+        console.log(e);
         let user_locations = await location.getUserLocations(req.session.user['UserID']);
-        res.status(400).render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, error: e });
+    
+        res.status(400).render('partials/location_info', {date:null, geo:null,isError: true,error: e });
+       
         return;
         //res.status(400).json(e);
     }

@@ -3,29 +3,33 @@
 <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 
-
+<body id="userinfo_page">
 
 
 
 <h1> Welcome {{username}} </h1>
+
+
+<ul class="topnav">
+  <li><a class="active" href="/">Home</a></li>
+  <li><a href="/api/logout">LogOut</a></li>
+  <li><a href="/userinfo">UserInfo</a></li>
+</ul>
+
+
+
 
 <p> Your Past Locations Are Here : </p>
 
 
 <div id="userloc">
 	<ol id='user_locations'>
-		{{#each this.locations}}
-			{{this.DateVisited}} :  {{this.Address}} 
-			{{>location_info }} 
-		{{/each}}
-
+	    {{#each this.locations}}
+            <li>{{this.DateVisited }} : {{this.Address}} </li> 
+            {{>location_info }} 
+        {{/each}}
+    
 	</ol>	
-</div>
-	
-
-<div id="location-errors">
-    <p>{{this.error}}</p>
-  
 </div>
 
 
@@ -41,7 +45,8 @@
     
 </form>
 
-
+<div id="location-errors">
+</div>
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script>
@@ -49,3 +54,4 @@
 
 
 
+</body>

@@ -1,2 +1,6 @@
 
-<li> {{this.date}} :  {{this.geo}} </li>
+{{#if isError}}
+    <p class='error-userinfo'> {{this.error}} </p>
+{{else}}
+	<li> {{this.date}} :  {{this.geo}} </li>	
+{{/if}}  
