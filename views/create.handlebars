@@ -1,29 +1,37 @@
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/css/styles.css">
 </head>
-<h1>Sign Up for an COVID HotSpot Account</h1>
 
-<p>Please fill in this form to create an account.</p>
-<hr>
+<div class="signUp-container">
+    <h1 class="signUp-header">Sign Up for a Hoboken Tracking Account</h1>
 
+    <p>Please fill in this form to create an account.</p>
+    <hr>
 
-<div id="signup-error">
-    <p class="error-signUp"> {{this.error}} </p>
+    <div id="signup-error">
+        <p class="error-signUp"> {{this.error}} </p>
+    </div>
+    <form action ="/create" id="create-acct" method="POST">
+        <div class="col-auto">
+            <label for="email" class="bold-text"> <b>Email:</b> </label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email Address" required>
+        </div>
+        <div class="col-auto">
+            <label for="username" class="bold-text"> <b>UserName:</b> </label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Enter User Name" required>
+        </div>
+        <div class="col-auto">
+            <label for="password" class="bold-text"> <b>Password:</b> </label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary"> Create Account </button>
+        </div>
+    </form>
+    <div class="login-button-div">
+        <a  href="/api/login"><button class="btn btn-link">Already have an account? Login here</button></a>
+    </div>
 </div>
-
-<form action ="/create" id="create-acct" method="POST">
-    
-    <label for="email" class="bold-text"> <b>Email:</b> </label>
-    <input type="email" name="email" id="email" placeholder="Enter Email Address" required>
-
-    <label for="username" class="bold-text"> <b>UserName:</b> </label>
-    <input type="text" name="username" id="username" placeholder="Enter User Name" required>
-
-
-    <label for="password" class="bold-text"> <b>Password:</b> </label>
-    <input type="password" name="password" id="password" placeholder="Enter Password" required>
-
-    <button type="submit"> Create Account </button>
-</form>
 
 <script src="/public/js/sign_up.js"></script>

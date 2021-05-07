@@ -1,10 +1,10 @@
 .error-userinfo{
-	color:red;
+	color: #ee0000;
 	font-weight:bold;
 }
 
 .error-signUp {
-	color:red;
+	color: #ee0000;
 	font-weight:bold;
 }
 
@@ -13,13 +13,12 @@
 	text-align: center;
 }
 
-.login-header {
+.login-header, .signUp-header {
 	text-align: center;
 	font-weight: bold;
-	border-bottom: 2px inset;
 }
 
-.login-container {
+.login-container, .signUp-container {
 	margin: 30px auto;
 	width: 50%;
 	padding: 20px;
@@ -34,7 +33,7 @@
 	width: 100px;
 }
 
-.create-button-div {
+.create-button-div, .login-button-div {
 	margin: auto;
 	width: 50%;
 }
