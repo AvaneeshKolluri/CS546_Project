@@ -4,7 +4,7 @@ const location = require('../data/location');
 const users = require('../data/users');
 
 router.get('/', async(req, res) => {
-    //await location.deleteOldLocations();
+    await location.deleteOldLocations();
     let allLocations = await location.getAllLocations();
     let allUsers = await users.getAllUsers();
     if (req.session.user) {

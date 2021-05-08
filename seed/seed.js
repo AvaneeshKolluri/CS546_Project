@@ -4,14 +4,11 @@ const bcrypt = require('bcrypt');
 let { ObjectId } = require('mongodb');
 const collections = require('../config/mongoCollections');
 const connection = require('../config/mongoConnection');
-const Nominatim = require('nominatim-geocoder');
-const geocoder = new Nominatim();
-
+const locationSeedFile = require("./locationSeed");
 const users = collections.users;
 const locations = collections.locations;
 
 async function main() {
-
     const usersCollection = await users();
     const locationCollection = await locations();
     usersCollection.remove({});
@@ -32,7 +29,6 @@ async function main() {
     if (insertFirstUser.insertedCount != 1) {
         throw "Expected inserted: " + 1 + " Actual inserted: " + insertFirstUser.insertedCount;
     }
-    let firstUserId = user1.UserID;
 
     let password2 = "Hunter23";
     let user2 = {
@@ -50,7 +46,6 @@ async function main() {
         throw "Expected inserted: " + 1 + " Actual inserted: " + insertSecondUser.insertedCount;
     }
 
-    let secondUserId = user2.UserID;
 
     let password3 = "ComplicatedPassword!23";
     let user3 = {
@@ -68,49 +63,18 @@ async function main() {
         throw "Expected inserted: " + 1 + " Actual inserted: " + insertThirdUser.insertedCount;
     }
 
-    let thirdUserId = user3.UserID;
-
-    let userList = [firstUserId, secondUserId, thirdUserId];
     let locationList = [];
-    let streets = ["Washington Street", "Sinatra Drive", "River Street", "Court Street", "Bloomfield Street, Garden Street", "Park Avenue", "Willow Avenue",
-        "Clinton Street", "Grand Street", "Adams Street", "Madison Street", "Monroe Street"
-    ];
-    let numAddresses = 25;
-    for (let i = 0; i < numAddresses; i++) {
-        console.log("Generating address " + (i + 1) + "/" + numAddresses);
-        let date = new Date();
-        date.setDate(date.getDate() - Number(Math.round(Math.random() * 30)));
-        let l = {
-            _id: ObjectId(),
-            Coordinates: {
-                type: "Point",
-                coordinates: []
-            },
-            UserID: userList[Math.round(Math.random() * 2)],
-            Address: "",
-            DateVisited: date
-        };
-        let number = Math.round(Math.random() * (1500));
-        let street = streets[Math.round(Math.random() * (streets.length - 1))];
-        let address = number + " " + street;
-        let response = await geocoder.search({
-            street: address,
-            city: "Hoboken",
-            state: "New Jersey"
-        });
-        let long = Number(response[0].lon);
-        let lat = Number(response[0].lat);
-        l.Coordinates.coordinates = [long, lat];
-        l.Address = address + ", Hoboken, New Jersey";
+    for (let i = 0; i < locationSeedFile.length; i++) {
+        l = locationSeedFile[i];
+        l._id = new ObjectId(l._id);
+        l.DateVisited = new Date(l.DateVisited);
         locationList.push(l);
     }
-
-    //console.log(locationList);
     const addLocationListData = await locationCollection.insert(locationList);
-    if (addLocationListData.insertedCount != numAddresses) {
+    if (addLocationListData.insertedCount != locationList.length) {
         throw addLocationListData.insertedCount + " were inserted instead of 9";
     }
-    for (let i = 0; i < numAddresses; i++) {
+    for (let i = 0; i < locationList.length; i++) {
         let l = locationList[i];
         let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
         if (addLocation.result.nModified != 1) {
@@ -118,24 +82,24 @@ async function main() {
         }
     }
     console.log(`First user credentials: ${user1.UserID} : ${password1} \nLocations:`);
-    for (let i = 0; i < numAddresses; i++) {
+    for (let i = 0; i < locationList.length; i++) {
         if (locationList[i].UserID == user1.UserID) {
             console.log("\t" + locationList[i].Address);
         }
     }
     console.log(`Second user credentials: ${user2.UserID} : ${password2} \nLocations:`);
-    for (let i = 0; i < numAddresses; i++) {
+    for (let i = 0; i < locationList.length; i++) {
         if (locationList[i].UserID == user2.UserID) {
             console.log("\t" + locationList[i].Address);
         }
     }
     console.log(`Third user credentials: ${user3.UserID} : ${password3} \nLocations:`);
-    for (let i = 0; i < numAddresses; i++) {
+    for (let i = 0; i < locationList.length; i++) {
         if (locationList[i].UserID == user3.UserID) {
             console.log("\t" + locationList[i].Address);
         }
     }
-    console.log("Generated " + numAddresses + " locations from the last month");
+    console.log("Loaded " + locationList.length + " locations from the last month");
     const db = await connection();
     await db.serverConfig.close();
 }

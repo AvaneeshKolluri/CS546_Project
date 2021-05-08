@@ -6,6 +6,7 @@ const connection = require('../config/mongoConnection');
 const validate = require("./validate");
 const { coordinates } = require('./validate');
 
+
 const users = collections.users;
 const locations = collections.locations;
 
@@ -158,7 +159,7 @@ const exportedMethods = {
                 throw "No location document with id " + user_location;
             }
             let date = locationDocument.DateVisited.getDate();
-            let month = locationDocument.DateVisited.getMonth();
+            let month = locationDocument.DateVisited.getMonth() + 1;
             let year = locationDocument.DateVisited.getFullYear();
             locationDocument.DateVisited = month + "/" + date + "/" + year;
             locationDocuments.push(locationDocument);
@@ -176,10 +177,21 @@ const exportedMethods = {
     },
     async deleteOldLocations() {
         const locationsCollection = await locations();
-        let allLocations = await locationsCollection.find({}).toArray();
+        const usersCollection = await users();
+
         const expiryDate = new Date();
         expiryDate.setDate(expiryDate.getDate() - 14);
-        await locationsCollection.remove({
+        const toBeDeleted = await locationsCollection.find({
+            DateVisited: {
+                $lt: expiryDate
+            }
+        }).toArray();
+        const numDeleted = toBeDeleted.length;
+        for (let i = 0; i < numDeleted; i++) {
+            let location = toBeDeleted[i];;
+            await usersCollection.update({ UserID: location.UserID }, { $pull: { locationIDs: location._id } });
+        }
+        const deleteFromLocations = await locationsCollection.remove({
             DateVisited: {
                 $lte: expiryDate
             }
