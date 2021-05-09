@@ -5,12 +5,8 @@ const valid = require('../data/validate');
 const mongoCollections = require('../config/mongoCollections');
 const usersMDB = mongoCollections.users;
 
-router.get('/quiz', async(req, res) => {
-    if (req.session.user) {
-        res.redirect('/');
-    } else {
-        res.render("quiz");
-    }
+router.get('/', async(req, res) => {
+    res.render("quiz");
 });
 
 module.exports = router;
