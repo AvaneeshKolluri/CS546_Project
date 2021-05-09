@@ -1,3 +1,124 @@
+//Everything hudson chart related
+let hudsonChartObject = {
+    animationEnabled: true,
+    axisX:{
+        valueFormatString: "DD MMM"
+    },
+    axisY: {
+        title: "Number of Cases",
+        scaleBreaks: {
+            autoCalculate: true
+        }
+    },
+    data: [{
+        type: "line",
+        xValueFormatString: "DD MMM",
+        color: "#7B163E",
+        dataPoints: [
+            {x: new Date(2021, 1, 1), y: 223},
+            {x: new Date(2021, 1, 2), y: 170},
+            {x: new Date(2021, 1, 3), y: 203},
+            {x: new Date(2021, 1, 4), y: 269},
+            {x: new Date(2021, 1, 5), y: 313},
+            {x: new Date(2021, 1, 6), y: 359},
+            {x: new Date(2021, 1, 7), y: 365},
+            {x: new Date(2021, 1, 8), y: 164},
+            {x: new Date(2021, 1, 9), y: 279},
+            {x: new Date(2021, 1, 10), y: 369},
+            {x: new Date(2021, 1, 11), y: 335},
+            {x: new Date(2021, 1, 12), y: 307},
+            {x: new Date(2021, 1, 13), y: 311},
+            {x: new Date(2021, 1, 14), y: 217},
+            {x: new Date(2021, 1, 15), y: 114},
+            {x: new Date(2021, 1, 16), y: 253},
+            {x: new Date(2021, 1, 17), y: 421},
+            {x: new Date(2021, 1, 18), y: 354},
+            {x: new Date(2021, 1, 19), y: 299},
+            {x: new Date(2021, 1, 20), y: 181},
+            {x: new Date(2021, 1, 21), y: 164},
+            {x: new Date(2021, 1, 22), y: 288},
+            {x: new Date(2021, 1, 23), y: 295},
+            {x: new Date(2021, 1, 24), y: 313},
+            {x: new Date(2021, 1, 25), y: 366},
+            {x: new Date(2021, 1, 26), y: 349},
+            {x: new Date(2021, 1, 27), y: 406},
+            {x: new Date(2021, 1, 28), y: 199},
+            {x: new Date(2021, 2, 1), y: 323},
+            {x: new Date(2021, 2, 2), y: 340},
+            {x: new Date(2021, 2, 3), y: 262},
+            {x: new Date(2021, 2, 4), y: 263},
+            {x: new Date(2021, 2, 5), y: 326},
+            {x: new Date(2021, 2, 6), y: 383},
+            {x: new Date(2021, 2, 7), y: 232},
+            {x: new Date(2021, 2, 8), y: 229},
+            {x: new Date(2021, 2, 9), y: 334},
+            {x: new Date(2021, 2, 10), y: 331},
+            {x: new Date(2021, 2, 11), y: 344},
+            {x: new Date(2021, 2, 12), y: 365},
+            {x: new Date(2021, 2, 13), y: 283},
+            {x: new Date(2021, 2, 14), y: 303},
+            {x: new Date(2021, 2, 15), y: 221},
+            {x: new Date(2021, 2, 16), y: 248},
+            {x: new Date(2021, 2, 17), y: 373},
+            {x: new Date(2021, 2, 18), y: 472},
+            {x: new Date(2021, 2, 19), y: 309},
+            {x: new Date(2021, 2, 20), y: 539},
+            {x: new Date(2021, 2, 21), y: 260},
+            {x: new Date(2021, 2, 22), y: 279},
+            {x: new Date(2021, 2, 23), y: 473},
+            {x: new Date(2021, 2, 24), y: 304},
+            {x: new Date(2021, 2, 25), y: 317},
+            {x: new Date(2021, 2, 26), y: 508},
+            {x: new Date(2021, 2, 27), y: 533},
+            {x: new Date(2021, 2, 28), y: 327},
+            {x: new Date(2021, 2, 29), y: 296},
+            {x: new Date(2021, 2, 30), y: 377},
+            {x: new Date(2021, 2, 31), y: 251},
+            {x: new Date(2021, 3, 1), y: 522},
+            {x: new Date(2021, 3, 2), y: 410},
+            {x: new Date(2021, 3, 3), y: 382},
+            {x: new Date(2021, 3, 4), y: 327},
+            {x: new Date(2021, 3, 5), y: 197},
+            {x: new Date(2021, 3, 6), y: 299},
+            {x: new Date(2021, 3, 7), y: 372},
+            {x: new Date(2021, 3, 8), y: 403},
+            {x: new Date(2021, 3, 9), y: 346},
+            {x: new Date(2021, 3, 10), y: 271},
+            {x: new Date(2021, 3, 11), y: 281},
+            {x: new Date(2021, 3, 12), y: 201},
+            {x: new Date(2021, 3, 13), y: 317},
+            {x: new Date(2021, 3, 14), y: 287},
+            {x: new Date(2021, 3, 15), y: 293},
+            {x: new Date(2021, 3, 16), y: 427},
+            {x: new Date(2021, 3, 17), y: 359},
+            {x: new Date(2021, 3, 18), y: 300},
+            {x: new Date(2021, 3, 19), y: 172},
+            {x: new Date(2021, 3, 20), y: 216},
+            {x: new Date(2021, 3, 21), y: 273},
+            {x: new Date(2021, 3, 22), y: 286},
+            {x: new Date(2021, 3, 23), y: 270},
+            {x: new Date(2021, 3, 24), y: 244},
+            {x: new Date(2021, 3, 25), y: 188},
+            {x: new Date(2021, 3, 26), y: 30},
+            {x: new Date(2021, 3, 27), y: 182},
+            {x: new Date(2021, 3, 28), y: 174},
+            {x: new Date(2021, 3, 29), y: 199},
+            {x: new Date(2021, 3, 30), y: 193},
+            {x: new Date(2021, 4, 1), y: 130},
+            {x: new Date(2021, 4, 2), y: 118},
+            {x: new Date(2021, 4, 3), y: 80},
+            {x: new Date(2021, 4, 4), y: 41},
+            {x: new Date(2021, 4, 5), y: 140},
+            {x: new Date(2021, 4, 6), y: 102},
+            {x: new Date(2021, 4, 7), y: 129},
+            {x: new Date(2021, 4, 8), y: 67}
+        ]
+    }]
+}
+
+//End of everything hudson chart related
+
+//Beginning of user data chart
 //Global chart object that will have all the data
 let chartObject = {
     animationEnabled: true,
@@ -75,7 +196,9 @@ function getData(){
 
 function initGraph(){
     var chart = new CanvasJS.Chart("chartContainer", chartObject);
+    var chart2 = new CanvasJS.Chart("hudsonChartContainer", hudsonChartObject);
     chart.render();
+    chart2.render();
 }
  
 
@@ -83,7 +206,7 @@ window.addEventListener('load', function() {
     getData();
     initGraph();
 })
-  
+
 
 
 
