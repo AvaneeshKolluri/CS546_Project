@@ -35,7 +35,12 @@
 				if (new Date(date_report_val) > new Date()){
 					throw "Date Has Not Yet Occured. Please Enter A Valid Date.";	
 				}
-				//check for 14 days
+				let diff = Math.abs(new Date().getTime() - new Date(date_report_val).getTime()) / (1000 * 60 * 60 * 24);
+
+				if  (diff > 14){
+					throw "Date Is More Than Two Weeks Old. Please Enter A Valid Date.";	
+				}
+				
 			}
 			
 			//alert("Thank You For Your Submission");
@@ -73,6 +78,12 @@
 			}
 			if (new Date(date_val) > new Date()){
 				throw "Date Has Not Yet Occured. Please Enter A Valid Date.";	
+			}
+
+			let diff = Math.abs(new Date().getTime() - new Date(date_val).getTime()) / (1000 * 60 * 60 * 24);
+
+			if  (diff > 14){
+				throw "Date Is More Than Two Weeks Old. Please Enter A Valid Date.";	
 			}
 
 			var requestConfig = {
