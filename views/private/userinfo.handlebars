@@ -16,10 +16,35 @@
 </ul>
 
 
-<h1> Welcome {{username}} </h1>
+<p class='welcome'> Welcome {{username}} </p>
 
 
-<p> Your Past Locations Are Here : </p>
+
+<form action = '/userinfo/covidstatus' id="covid_status_form" method="POST">
+
+    
+    <p>Have You Tested Positive for Covid in the past two weeks?</p>
+    <input type="radio" id="covid_yes" name="covid_yes" value="Yes">
+    <label for="covid_yes">Yes</label><br>
+
+    <input type="radio" id="covid_yes" name="covid_no" value="No">
+    <label for="covid_no">No</label><br>
+    <br>
+    <label for="report_date"> Date Visited: </label>
+    <input type="date" name="report_date" id="report_date" placeholder="Enter The Date">
+    
+    <button type="submit"> Submit</button>
+
+    
+</form>
+
+<div id="covid_report_result">
+      {{>covid_status_result }}
+</div>
+
+
+
+<p class='past_loc'> Your Past Locations Are Here : </p>
 
 
 <div id="userloc">

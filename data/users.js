@@ -43,7 +43,11 @@ let methods = {
 		    UserID: username,
 		    passwordHash: hash_password, 
 		    email: email,
-		    locationIDs:[]
+		    locationIDs:[],
+		    covidStatus: {
+	            reportPositive: false,
+	            dateReported: null
+        	}
 		};
 
 		const insertUser = await userCollection.insertOne(newUser);
@@ -74,6 +78,47 @@ let methods = {
         const usersCollection = await users();
         const usersArray = await usersCollection.find({}).toArray();
         return usersArray;
+    },
+
+    async UserCovidStatus(username,covidstatus,dateReported){
+    	if (!username) throw 'You must provide an username.';
+		if (typeof(username) != 'string' || username.trim().length === 0 ){
+			throw 'You must provide a username that is more than just empty spaces.';
+		}
+
+		if (!covidstatus || typeof covidstatus != "boolean" ){
+			throw "Invalid Covid Status";
+		}
+
+    	if (!(valid.dateVisited(dateReported))) {
+            throw "Invalid Data Reported parameter.";
+        }
+
+        const userCollection = await users();
+        let covid_status_obj = {reportPositive: covidstatus,dateReported:new Date(dateReported)};
+        const user = await userCollection.updateOne({ UserID: username },{$set:{covidStatus:covid_status_obj}});
+        if (user === null) {
+            throw 'No user exists with the given username';
+        }
+        return user;
+    },
+    async NegativeUserCovidStatus(username,covidstatus){
+    	
+    	if (!username) throw 'You must provide an username.';
+		if (typeof(username) != 'string' || username.trim().length === 0 ){
+			throw 'You must provide a username that is more than just empty spaces.';
+		}
+
+		if (!covidstatus || typeof covidstatus != "boolean" ){
+			throw "Invalid Covid Status";
+		}
+        const userCollection = await users();
+        let covid_status_obj = {reportPositive: covidstatus,dateReported:null};
+        const user = await userCollection.updateOne({ UserID: username },{$set:{covidStatus:covid_status_obj}});
+        if (user === null) {
+            throw 'No user exists with the given username';
+        }
+        return user;
     }
 };
 module.exports = methods;

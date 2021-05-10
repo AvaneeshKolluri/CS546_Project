@@ -66,3 +66,23 @@ ul.topnav li a:hover:not(.active) {background-color: #111;}
 ul.topnav li a.active {background-color: #4CAF50;}
 
 
+.userinfo_title {
+	text-align: center;
+}
+
+.welcome {
+	font-weight: bold;
+	font-style:italic;
+	font-size:20pt;
+	font-family: "Times New Roman", Times, serif;
+
+}
+
+
+
+.past_loc {
+	font-weight: bold;
+	font-size:16pt;
+	font-family: "Times New Roman", Times, serif;
+}
+

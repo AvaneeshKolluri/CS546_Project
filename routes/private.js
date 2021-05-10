@@ -4,6 +4,7 @@ const location = require('../data/location');
 const validate = require("../data/validate");
 const Nominatim = require("nominatim-geocoder");
 const geocoder = new Nominatim();
+const users_database = require('../data/users');
 
 router.get("/", async(req, res) => {
     if (req.session.user) {
@@ -16,6 +17,50 @@ router.get("/", async(req, res) => {
     }
 });
 
+router.post("/covidstatus", async(req, res) => {
+    if (req.session.user){
+        try {
+        
+            if (!req.body.hasOwnProperty('covid_yes') && !req.body.hasOwnProperty('covid_no')){
+                throw "User Must Select One Option";
+            }
+            if (!validate.dateVisited(req.body.report_date)) {
+                    throw "Invalid Date Reported";
+            }
+
+            if (new Date(req.body.report_date) > new Date()) {
+                throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
+            }
+
+            //check if the date is more than two weeks old from today
+            if (req.body.hasOwnProperty('covid_yes')){
+                if (req.body.covid_yes === 'Yes'){
+                    console.log(req.session.user['UserID']);
+                    let updated_user = await users_database.UserCovidStatus(req.session.user['UserID'],true,req.body.report_date);
+                    res.render('partials/covid_status_result', {isError: false,error: null, isVal: true}); 
+                    return;
+                }
+            }
+
+            if(req.body.hasOwnProperty('covid_no')){
+               if (req.body.covid_yes === 'No'){
+                    let updated_user = await users_database.NegativeUserCovidStatus(req.session.user['UserID'],true,req.body.report_date);
+                    res.render('partials/covid_status_result', {isError: false,error: null,isVal: true}); 
+                    return;
+               }
+            }
+            
+       
+        }catch(e){
+            res.render('partials/covid_status_result', {isError: true,error: e,isVal: false});
+            console.log(e);
+        }
+    } else{
+        return res.redirect('/');
+    }
+
+    
+});
 
 router.post("/", async(req, res) => {
     console.log(req.body);
@@ -28,12 +73,13 @@ router.post("/", async(req, res) => {
         if (req.body.date.length === 0) {
             throw "Must Enter A Valid Date."
         }
-        if (new Date(req.body.date) > new Date()) {
-            throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
-        }
         if (!validate.dateVisited(req.body.date)) {
             throw "Invalid Date";
         }
+        if (new Date(req.body.date) > new Date()) {
+            throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
+        }
+        
         //let date = new Date(req.body.date);
         geocoder.search({ street: req.body.street, city: "Hoboken", state: "New Jersey" }).then((response) => {
 
@@ -60,5 +106,8 @@ router.post("/", async(req, res) => {
 
 
 });
+
+
+
 
 module.exports = router;

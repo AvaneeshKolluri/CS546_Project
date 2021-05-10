@@ -50,12 +50,13 @@ router.post('/', async(req, res) => {
         if (valid.email(email) == false) {
             throw 'Email should be of the proper email format';
         }
+
         let newUser = await users.Create(email, username, password);
         console.log(newUser);
         res.redirect("/");
     } catch (e) {
         res.status(400).render('create', { error: e })
-            //res.status(404).json(e);
+        
     }
 
 });
