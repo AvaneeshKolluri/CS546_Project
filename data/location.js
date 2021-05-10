@@ -40,12 +40,13 @@ const exportedMethods = {
         if (!(validate.userID(userID))) {
             throw "Invalid User ID parameter.";
         }
-        /*if (!(validate.coordinates(longitude, latitude))) {
+
+        if (!(validate.coordinates(longitude, latitude))) {
             throw "Invalid coordinate parameter.";
         }
         if (!(validate.covidStatus(covidStatus))) {
             throw "Invalid covidStatus parameter."
-        }*/
+        }
         if (!(validate.address(Address))) {
             throw "Invalid Address parameter.";
         }
@@ -86,8 +87,7 @@ const exportedMethods = {
         }
         const location_mongoID = submitLocation.insertedId;
 
-        console.log("location mongo id:" + submitLocation.insertedId);
-
+        
         //Add locationID to users locationID array
         const addToUser = await usersCollection.update({ UserID: userID }, { $push: { locationIDs: submitLocation.insertedId } });
         if (addToUser.result.nModified != 1) {
