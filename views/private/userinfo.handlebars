@@ -7,7 +7,7 @@
 
 
 
-<h1> Hoboken COVID HotSpot Track </h1>
+<h1> Hoboken COVID HotSpot Tracker </h1>
 
 <ul class="topnav">
   <li><a class="active" href="/">Home</a></li>
@@ -22,24 +22,23 @@
 
 <form action = '/userinfo/covidstatus' id="covid_status_form" method="POST">
 
-    
     <p>Have You Tested Positive for Covid in the past two weeks?</p>
-    <input type="radio" id="covid_yes" name="covid_yes" value="Yes">
+    <input type="radio" id="covid_report" name="covid_report"  value="Yes">
     <label for="covid_yes">Yes</label><br>
 
-    <input type="radio" id="covid_yes" name="covid_no" value="No">
+    <input type="radio" id="covid_report" name="covid_report"  value="No">
     <label for="covid_no">No</label><br>
-    <br>
-    <label for="report_date"> Date Visited: </label>
+
+    <p> Only If You Test Positive, Report the day you tested Positive.</p>
     <input type="date" name="report_date" id="report_date" placeholder="Enter The Date">
-    
+  
     <button type="submit"> Submit</button>
 
     
 </form>
 
 <div id="covid_report_result">
-      {{>covid_status_result }}
+      <p>{{covid_status_result}}</p>
 </div>
 
 
@@ -58,6 +57,10 @@
 </div>
 
 
+
+<div id="location-errors">
+</div>
+
 <form action = '/userinfo' id="location-form" method="POST">
     <label for="street-address" class="bold-text"> Street Address: </label>
     <input type="text" name="street-address" id="street-address" placeholder="Enter The Street Address">
@@ -70,8 +73,7 @@
     
 </form>
 
-<div id="location-errors">
-</div>
+
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script>

@@ -53,7 +53,7 @@ router.post('/', async(req, res) => {
 
         let newUser = await users.Create(email, username, password);
         console.log(newUser);
-        res.redirect("/");
+        res.redirect("/api/login");
     } catch (e) {
         res.status(400).render('create', { error: e })
         
