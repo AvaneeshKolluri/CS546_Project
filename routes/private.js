@@ -70,8 +70,7 @@ router.post("/covidstatus", async(req, res) => {
 });
 
 router.post("/", async(req, res) => {
-    console.log(req.body);
-    //must validate the form submission here
+
     if (req.session.user){
         try {
                 if (req.body.street.trim().length === 0) {
@@ -86,18 +85,14 @@ router.post("/", async(req, res) => {
                 if (new Date(req.body.date) > new Date()) {
                     throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
                 }
-                
-                //let date = new Date(req.body.date);
+
                 geocoder.search({ street: req.body.street, city: "Hoboken", state: "New Jersey" }).then((response) => {
 
-                    //The geocoder's display_name field sometimes doesn't give the address number, 
-                    //so I changed it to the address the user submitted
-                    
-                    let newLocation = location.createLocation(req.session.user['UserID'], Number(response[0].lon), Number(response[0].lat), true, response[0].display_name, req.body.date);
+                    let newLocation = location.createLocation(req.session.user['UserID'], Number(response[0].lon), Number(response[0].lat), response[0].display_name, req.body.date);
                     res.render('partials/location_info', { geo:response[0].display_name , date: req.body.date ,isError: false,error: null});
                     return;
                 }).catch((error) => {
-                    res.render('partials/error_info', {isError: true,error: "Invalid Hoboken Location. Please Try Again."});
+                    res.render('partials/location_info', {geo: null,date: null, isError: true,error: "Invalid Hoboken Location. Please Try Again."});
                 })
 
 
@@ -105,7 +100,7 @@ router.post("/", async(req, res) => {
             console.log(e);
             let user_locations = await location.getUserLocations(req.session.user['UserID']);
         
-            res.render('partials/error_info', {isError: true,error: e });
+            res.render('partials/location_info', {geo: null,date: null,isError: true,error: e });
            
             return;
             //res.status(400).json(e);

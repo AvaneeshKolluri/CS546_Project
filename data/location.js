@@ -35,7 +35,7 @@ function sendCovidAlert(emails, address, date) {
     }
 }
 const exportedMethods = {
-    async createLocation(userID, longitude, latitude, covidStatus, Address, dateVisited) {
+    async createLocation(userID, longitude, latitude, Address, dateVisited) {
 
         if (!(validate.userID(userID))) {
             throw "Invalid User ID parameter.";
@@ -44,9 +44,7 @@ const exportedMethods = {
         if (!(validate.coordinates(longitude, latitude))) {
             throw "Invalid coordinate parameter.";
         }
-        if (!(validate.covidStatus(covidStatus))) {
-            throw "Invalid covidStatus parameter."
-        }
+       
         if (!(validate.address(Address))) {
             throw "Invalid Address parameter.";
         }
@@ -66,7 +64,6 @@ const exportedMethods = {
                 coordinates: [longitude, latitude],
             },
             userID: userID,
-            covidStatus: covidStatus,
             Address: Address,
             DateVisited: new Date(dateVisited)
         };
@@ -77,7 +74,7 @@ const exportedMethods = {
             throw "No User with id " + userID;
         }
 
-        console.log(user);
+        //console.log(user);
 
 
         const locationsCollection = await locations();
@@ -94,7 +91,7 @@ const exportedMethods = {
             throw "Could not updates users subdocument array";
         }
 
-        console.log(addToUser.result.nModified);
+       // console.log(addToUser.result.nModified);
         //If the location is covid negative, don't send notifications
         if (!covidStatus) {
             return location;
@@ -112,7 +109,7 @@ const exportedMethods = {
                 }
             }
         });
-        console.log(await (nearbyLocations.toArray()));
+       
         //There are no nearby locations
         if (nearbyLocations.length < 5) {
             return location;
