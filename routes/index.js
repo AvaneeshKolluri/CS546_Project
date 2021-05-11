@@ -15,7 +15,7 @@ const constructorMethod = (app) => {
   app.use('/create', createRoutes);
 
   app.use('*', (req, res) => {
-    res.sendStatus(404); // Add some page here
+    res.redirect('/'); // Add some page here
   });
 };
 
