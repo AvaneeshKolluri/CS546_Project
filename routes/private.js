@@ -18,44 +18,48 @@ router.get("/", async(req, res) => {
 });
 
 router.post("/covidstatus", async(req, res) => {
+    console.log("im here");
     if (req.session.user){
-        let user_locations = await location.getUserLocations(req.session.user['UserID']);
+        
+        
         try {
         
-            if (!req.body.hasOwnProperty('covid_yes') && !req.body.hasOwnProperty('covid_no')){
+            if (!req.body.hasOwnProperty('covid_report')){
                 throw "User Must Select One Option";
             }
-            if (!validate.dateVisited(req.body.report_date)) {
+            if (req.body.covid_report.trim().length === 0){
+                throw "User Must Select An Option";
+            }
+
+            if (req.body.covid_report === 'Yes'){
+                if (!validate.dateVisited(req.body.date_report)) {
                     throw "Invalid Date Reported";
-            }
-
-            if (new Date(req.body.report_date) > new Date()) {
-                throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
-            }
-
-            
-            //check if the date is more than two weeks old from today
-            if (req.body.hasOwnProperty('covid_yes')){
-                if (req.body.covid_yes === 'Yes'){
-                    console.log(req.session.user['UserID']);
-                    let updated_user = await users_database.UserCovidStatus(req.session.user['UserID'],true,req.body.report_date);
                 }
-            }else if (req.body.hasOwnProperty('covid_no')){
-               if (req.body.covid_no === 'No'){
-                    let updated_user1 = await users_database.NegativeUserCovidStatus(req.session.user['UserID'],true,req.body.report_date);
-                    //res.render('partials/covid_status_result', {isError: false,error: null,isVal: true}); 
-                    //return;
-               }
-            }
+                if (new Date(req.body.date_report) > new Date()) {
+                    throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
+                }
+                let diff = Math.abs(new Date().getTime() - new Date(req.body.date_report).getTime()) / (1000 * 60 * 60 * 24);
+                
+                if  (diff > 14){
+                    throw "Date Is More Than Two Weeks Old. Please Enter A Valid Date.";    
+                }
 
-            res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, isError:false ,error:null, covid_status_result: "Thank You" });
-            return;
+                let updated_user = await users_database.UserCovidStatus(req.session.user['UserID'],true,req.body.date_report);
+            } 
+            else if (req.body.covid_report === 'No'){
+       
+                if (req.body.date_report != null){
+                    throw "Only Submit A Date If You Test Positive For Covid.";
+                }
+                let updated_user1 = await users_database.NegativeUserCovidStatus(req.session.user['UserID'],true);
+            }
             
+
+            res.render('partials/covid_result', { isError:false ,error:null });
+            return;
        
         }catch(e){
-            //res.render('partials/covid_status_result', {isError: true,error: e,isVal: false});
-            console.log(e);
-            res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, isError:false ,error:null, covid_status_result: e });
+            res.render('partials/covid_result', {isError:true,error:e });
             return;
         }
     } else{

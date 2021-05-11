@@ -11,9 +11,10 @@
 
 	let covidform = $('#covid_status_form');
 	let status_result = $('#covid_report_result');
-	let covid_report = $('#covid_report');
-	let date_report = $('#report_date');
 	
+	let date_report = $('#report_date');
+	status_result.hide();
+
 	covidform.submit(function(event) {
 		event.preventDefault();
 		status_result.empty();
@@ -23,12 +24,15 @@
 
 		try{
 
-			if (covid_report_val.trim().length === 0){
-				throw "You Must Answer If You Tested Positive."
+			if (covid_report_val == undefined){
+				throw "No Option Was Selected."
 			}
 
 			let date_report_val = date_report.val();
+			console.log(date_report_val);
 			if (covid_report_val == 'Yes'){
+
+
 				if (date_report_val.trim().length === 0){
 					throw "Must Enter A Valid Date."
 				}
@@ -40,17 +44,46 @@
 				if  (diff > 14){
 					throw "Date Is More Than Two Weeks Old. Please Enter A Valid Date.";	
 				}
+
 				
 			}
-			
-			//alert("Thank You For Your Submission");
-			status_result.append($('<p></p>').text("Thank You For Your Submission"));
-			status_result.addClass("bold-userinfo");
+			else{
+
+
+				if (date_report_val.trim().length != 0 ){
+					throw "Only Submit A Date If You Test Positive For Covid.";
+				}
+				
+				date_report_val = null;
+			}
+
+			var requestConfig = {
+				method: "POST",
+				url: "/userinfo/covidstatus",
+				contentType: "application/json",
+				data: JSON.stringify({
+					covid_report: covid_report_val,
+					date_report: date_report_val
+				})
+			};
+
+			$.ajax(requestConfig).then(function(responseMessage) {
+				status_result.append(responseMessage);
+				console.log(responseMessage);
+				
+			});
+
+
+			status_result.show();
+		
+		//	status_result.append($('<p></p>').text("Thank You For Your Submission"));
+		//	status_result.addClass("bold-userinfo");
 
 		}catch(e){
 			//alert(e);
 			status_result.append($('<p></p>').text(e));
 			status_result.addClass("error-userinfo");
+			status_result.show();
 		}
 	
 		

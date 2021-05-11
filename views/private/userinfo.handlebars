@@ -23,22 +23,21 @@
 <form action = '/userinfo/covidstatus' id="covid_status_form" method="POST">
 
     <p>Have You Tested Positive for Covid in the past two weeks?</p>
-    <input type="radio" id="covid_report" name="covid_report"  value="Yes">
-    <label for="covid_yes">Yes</label><br>
+    <input type="radio" name="covid_report" value="Yes">
+    <label>Yes</label><br>
 
-    <input type="radio" id="covid_report" name="covid_report"  value="No">
-    <label for="covid_no">No</label><br>
+    <input type="radio" name="covid_report" value="No">
+    <label>No</label><br>
 
     <p> Only If You Test Positive, Report the day you tested Positive.</p>
     <input type="date" name="report_date" id="report_date" placeholder="Enter The Date">
-  
     <button type="submit"> Submit</button>
 
     
 </form>
 
 <div id="covid_report_result">
-      <p>{{covid_status_result}}</p>
+    {{>covid_result}}
 </div>
 
 
@@ -50,9 +49,8 @@
 	<ol id='user_locations'>
 	    {{#each this.locations}}
             <li>{{this.DateVisited }} : {{this.Address}} </li> 
-            {{>location_info }} 
         {{/each}}
-    
+      {{>location_info }} 
 	</ol>	
 </div>
 
