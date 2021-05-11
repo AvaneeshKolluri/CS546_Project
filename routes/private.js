@@ -81,7 +81,7 @@ router.post("/", async(req, res) => {
                     throw "Must Enter A Valid Date."
                 }
                 if (!validate.dateVisited(req.body.date)) {
-                    throw "Invalid Date";
+                    throw "Invalid Date.";
                 }
                 if (new Date(req.body.date) > new Date()) {
                     throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
@@ -97,7 +97,7 @@ router.post("/", async(req, res) => {
                     res.render('partials/location_info', { geo:response[0].display_name , date: req.body.date ,isError: false,error: null});
                     return;
                 }).catch((error) => {
-                    res.render('partials/location_info', { geo:null , date: req.body.date ,isError: true,error: "Invalid Hoboken Location. Please Try Again."});
+                    res.render('partials/error_info', {isError: true,error: "Invalid Hoboken Location. Please Try Again."});
                 })
 
 
@@ -105,7 +105,7 @@ router.post("/", async(req, res) => {
             console.log(e);
             let user_locations = await location.getUserLocations(req.session.user['UserID']);
         
-            res.status(400).render('partials/location_info', {date:null, geo:null,isError: true,error: e });
+            res.render('partials/error_info', {isError: true,error: e });
            
             return;
             //res.status(400).json(e);

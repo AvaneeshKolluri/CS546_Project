@@ -75,9 +75,6 @@
 
 
 			status_result.show();
-		
-		//	status_result.append($('<p></p>').text("Thank You For Your Submission"));
-		//	status_result.addClass("bold-userinfo");
 
 		}catch(e){
 			//alert(e);
@@ -130,6 +127,7 @@
 			};
 
 			$.ajax(requestConfig).then(function(responseMessage) {
+				error_div.empty();
 				user_locations.append(responseMessage);
 				console.log(responseMessage);
 				
@@ -140,6 +138,7 @@
 		}catch(e){
 			error_div.append($('<p></p>').text(e));
 			error_div.addClass("error-userinfo");
+			error_div.show();
 		}
 		
 		
