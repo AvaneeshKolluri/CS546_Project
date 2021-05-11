@@ -9,7 +9,7 @@ const users_database = require('../data/users');
 router.get("/", async(req, res) => {
     if (req.session.user) {
         let user_locations = await location.getUserLocations(req.session.user['UserID']);
-        res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, isError:false ,error:null });
+        res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, isError:false ,error:null,isLoc: false });
         return;
     } else {
         //this is because you are not logged in
@@ -89,10 +89,10 @@ router.post("/", async(req, res) => {
                 geocoder.search({ street: req.body.street, city: "Hoboken", state: "New Jersey" }).then((response) => {
 
                     let newLocation = location.createLocation(req.session.user['UserID'], Number(response[0].lon), Number(response[0].lat), response[0].display_name, req.body.date);
-                    res.render('partials/location_info', { geo:response[0].display_name , date: req.body.date ,isError: false,error: null});
+                    res.render('partials/location_info', { geo:response[0].display_name , date: req.body.date ,isError: false,error: null,isLoc: true});
                     return;
                 }).catch((error) => {
-                    res.render('partials/location_info', {geo: null,date: null, isError: true,error: "Invalid Hoboken Location. Please Try Again."});
+                    res.render('partials/location_info', {geo: null,date: null, isError: true,error: "Invalid Hoboken Location. Please Try Again.",isLoc: false});
                 })
 
 
@@ -100,7 +100,7 @@ router.post("/", async(req, res) => {
             console.log(e);
             let user_locations = await location.getUserLocations(req.session.user['UserID']);
         
-            res.render('partials/location_info', {geo: null,date: null,isError: true,error: e });
+            res.render('partials/location_info', {geo: null,date: null,isError: true,error: e,isLoc: false });
            
             return;
             //res.status(400).json(e);

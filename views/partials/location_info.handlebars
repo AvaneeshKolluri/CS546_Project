@@ -1,7 +1,10 @@
+
+{{#if isLoc}}
+	<li> {{this.date}} :  {{this.geo}} </li>	
+{{/if}}
+
 {{#if isError}}
 	<div id="invalid-location">
-		<p>{{error}}</p>
-	</div> 
-{{else}}
-	<li> {{this.date}} :  {{this.geo}} </li>	
+	<p class="error-userinfo">{{error}}</p>
+	</div>
 {{/if}}

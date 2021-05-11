@@ -91,12 +91,6 @@ const exportedMethods = {
             throw "Could not updates users subdocument array";
         }
 
-       // console.log(addToUser.result.nModified);
-        //If the location is covid negative, don't send notifications
-        if (!covidStatus) {
-            return location;
-        }
-
         //Find locations within 50 meter of the positive location
         await locationsCollection.createIndex({ "Coordinates": "2dsphere" });
         const nearbyLocations = await locationsCollection.find({

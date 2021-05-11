@@ -15,6 +15,9 @@
 	let date_report = $('#report_date');
 	status_result.hide();
 
+
+	
+
 	covidform.submit(function(event) {
 		event.preventDefault();
 		status_result.empty();
@@ -128,8 +131,14 @@
 
 			$.ajax(requestConfig).then(function(responseMessage) {
 				error_div.empty();
-				user_locations.append(responseMessage);
-				console.log(responseMessage);
+
+				if (responseMessage.includes("Invalid Hoboken Location")){
+					error_div.append($('<p></p>').text("Invalid Hoboken Location. Please Try Again."));
+					error_div.addClass("error-userinfo");
+					error_div.show();
+				}else{
+					user_locations.append(responseMessage);
+				}
 				
 			});
 
