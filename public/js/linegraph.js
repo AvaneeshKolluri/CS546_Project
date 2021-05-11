@@ -126,10 +126,7 @@ let chartObject = {
 		valueFormatString: "DD MMM"
 	},
 	axisY: {
-		title: "Number of Cases",
-		scaleBreaks: {
-			autoCalculate: true
-		}
+		title: "Number of Cases"
 	},
 	data: [{
 		type: "line",
