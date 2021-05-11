@@ -1,62 +1,61 @@
 # CS546_Project
 
+Covid-19 Tracker that allows users to see Covid-19 hotspots in Hoboken, NJ.
+
+### To install the dependencies:
+``` npm install ```
+
+### To load seed file into database:
+``` npm run seed ```
+
+### To run the server:
+``` npm start ```
+
+### To generate entirely new seed
+``` npm run generate ```
+
+### Seed emails
+All user seed email inboxes can be seen on [generator.email/\<email>](generator.email)
+
+### Seed Credentials
 Initial user credentials for seed.js:
-UserID: "cat123"
-password1 = "Thisisapassword321"
 
-UserID: "dog321"
-password2 = "Hunter23"
+1. UserID: "cat123" password = "Thisisapassword321"
 
-UserID: "HiHelloQwerty"
-password3 = "password"
+2. UserID: "dog321" password = "Hunter23"
 
-UserID: "Pancakes"
-password4 = "circleread89material99"
+3. UserID: "HiHelloQwerty" password = "ComplexPassword09"
 
-UserID: "Lettuce"
-password5 = "71greenspendshout19"
+4. UserID: "Pancakes" password = "circleread89material99"
 
-UserID: "GreenForest"
-password6 = "97always33suchproblem"
+5. UserID: "Lettuce" password = "71greenspendshout19"
 
-UserID: "SeattleLover"
-password7 = "81earthough67settle"
+6. UserID: "GreenForest" password = "97always33suchproblem"
 
-UserID: "YogaGuru"
-password8 = "part27body43help"
+7. UserID: "SeattleLover" password = "81earthough67settle"
 
-UserID: "Explorer"
-password9 = "mindhurry2784safe"
+8. UserID: "YogaGuru" password = "part27body43help"
 
-UserID: "Pioneer"
-password10 = "55hunt37greatand"
+9. UserID: "Explorer" password = "mindhurry2784safe"
 
-UserID: "MathLover"
-password11 = "44evencompare31bad"
+10. UserID: "Pioneer" password = "55hunt37greatand"
 
-UserID: "FallPerson"
-password12 = "9040colorlotseason"
+11. UserID: "MathLover" password = "44evencompare31bad"
 
-UserID: "Climber"
-password13 = "8744offfigurestone"
+12. UserID: "FallPerson" password = "9040colorlotseason"
 
-UserID: "Employee"
-password14 = "593minutesteamraise"
+13. UserID: "Climber" password = "8744offfigurestone"
 
-UserID: "Baker"
-password15 = "mix81stood99call"
+14. UserID: "Employee" password = "593minutesteamraise"
 
-UserID: "Entertainer"
-password16 = "hot84centuryburn44"
+15. UserID: "Baker" password = "mix81stood99call"
 
-UserID: "CarGuy"
-password17 = "two85tirefelt18"
+16. UserID: "Entertainer" password = "hot84centuryburn44"
 
-UserID: "Accountant"
-password18 = "form6244happenstretch"
+17. UserID: "CarGuy" password = "two85tirefelt18"
 
-UserID: "Zookeeper"
-password19 = "observesystem1882fish"
+18. UserID: "Accountant" password = "form6244happenstretch"
 
-UserID: "Daredevil"
-password20 = "pair2434fireturn"
+19. UserID: "Zookeeper" password = "observesystem1882fish"
+
+20. UserID: "Daredevil" password = "pair2434fireturn"

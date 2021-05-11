@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const static = express.static(__dirname + '/public');
-
 const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 app.use('/public', static);
@@ -49,6 +48,18 @@ app.use('/private', (req, res, next) => {
     }
 });
 
+app.use('/userinfo', (req, res, next) => {
+    let authenticated = " (Non-Authenticated User)";
+    if (req.session && req.session.user) {
+        authenticated = " (Authenticated User)";
+    }
+    console.log("[" + (new Date().toUTCString()) + "] " + req.method + " " + req.originalUrl + authenticated);
+    if (req.session && req.session.user) {
+        next();
+    } else {
+        res.status(403).redirect("/");
+    }
+});
 
 configRoutes(app);
 

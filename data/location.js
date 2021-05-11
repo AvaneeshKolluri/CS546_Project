@@ -4,18 +4,18 @@ let { ObjectId } = require('mongodb');
 const collections = require('../config/mongoCollections');
 const connection = require('../config/mongoConnection');
 const validate = require("./validate");
-const { coordinates } = require('./validate');
 
+require('dotenv').config()
 
 const users = collections.users;
 const locations = collections.locations;
 
-function sendCovidAlert(emails, address, date) {
+function sendCovidAlert(emails, date, address) {
     const account = {
         service: 'gmail',
         auth: {
-            user: "covid19hotspots@gmail.com",
-            pass: "#^TjsoYIC&@b"
+            user: process.env.email,
+            pass: process.env.password
         }
     };
     const transporter = nodemailer.createTransport(account);
@@ -26,12 +26,11 @@ function sendCovidAlert(emails, address, date) {
             subject: "URGENT: Covid Hotspot Alert",
             text: `There has been a positive Covid result near ${address} on ${date}. Your previous submissions suggest that you may have potentially came into contact with COVID 19.`
         };
-        transporter.sendMail(alert, function(error) {
-            if (error) {
-                throw "Error sending email: " + error;
-            }
-        });
-        return true;
+        try {
+            const sendData = transporter.sendMail(alert);
+        } catch (e) {
+            console.log("Invalid Email, did not send alert");
+        }
     }
 }
 const exportedMethods = {
@@ -44,7 +43,7 @@ const exportedMethods = {
         if (!(validate.coordinates(longitude, latitude))) {
             throw "Invalid coordinate parameter.";
         }
-       
+
         if (!(validate.address(Address))) {
             throw "Invalid Address parameter.";
         }
@@ -63,7 +62,7 @@ const exportedMethods = {
                 type: "Point",
                 coordinates: [longitude, latitude],
             },
-            userID: userID,
+            UserID: userID,
             Address: Address,
             DateVisited: new Date(dateVisited)
         };
@@ -74,9 +73,6 @@ const exportedMethods = {
             throw "No User with id " + userID;
         }
 
-        //console.log(user);
-
-
         const locationsCollection = await locations();
         const submitLocation = await locationsCollection.insertOne(location);
         if (submitLocation.insertedCount == 0) {
@@ -84,7 +80,7 @@ const exportedMethods = {
         }
         const location_mongoID = submitLocation.insertedId;
 
-        
+
         //Add locationID to users locationID array
         const addToUser = await usersCollection.update({ UserID: userID }, { $push: { locationIDs: submitLocation.insertedId } });
         if (addToUser.result.nModified != 1) {
@@ -94,16 +90,16 @@ const exportedMethods = {
         //Find locations within 50 meter of the positive location
         await locationsCollection.createIndex({ "Coordinates": "2dsphere" });
         const nearbyLocations = await locationsCollection.find({
+            DateVisited: {
+                $lte: (new Date(dateVisited))
+            },
             Coordinates: {
-                location: {
-                    $near: {
-                        $geometry: location.Coordinates,
-                        $maxDistance: 50
-                    }
+                $near: {
+                    $geometry: location.Coordinates,
+                    $maxDistance: 75
                 }
             }
-        });
-       
+        }).toArray();
         //There are no nearby locations
         if (nearbyLocations.length < 5) {
             return location;
@@ -112,18 +108,17 @@ const exportedMethods = {
         let emails = [];
         //Get userIDs from locations
         for (let i = 0; i < nearbyLocations.length; i++) {
-            if (nearbyLocations.UserID == userID) {
+            if (nearbyLocations[i].UserID == userID) {
                 continue;
             }
-            const getUser = await usersCollection.findOne({ _id: nearbyLocations.UserID });
+            const getUser = await usersCollection.findOne({ UserID: nearbyLocations[i].UserID });
             if (getUser == null) {
                 throw "Location document has invalid User ID";
             }
             emails.push(getUser.email);
         }
-
         //send alerts to emails
-        sendCovidAlert(emails, location.DateVisited, location.Addresss);
+        sendCovidAlert(emails, dateVisited, Address);
 
         return location;
     },
@@ -141,8 +136,6 @@ const exportedMethods = {
         }
         const locationsCollection = await locations();
         locationDocuments = [];
-
-        //console.log(user.locationIDs);
 
         for (let user_location of user.locationIDs) {
             const locationDocument = await locationsCollection.findOne({ _id: user_location });

@@ -4,11 +4,14 @@ const Nominatim = require('nominatim-geocoder');
 const geocoder = new Nominatim();
 
 async function main() {
-    let userList = ["cat123", "dog321", "HiHelloQwerty"];
+    let userList = ["cat123", "dog321", "HiHelloQwerty", "Pancakes", "Lettuce",
+        "GreenForest", "SeattleLover", "YogaGuru", "Explorer", "Pioneer", "MathLover",
+        "FallPerson", "Climber", "Employee", "Baker", "Entertainer", "CarGuy", "Accountant", "Zookeeper", "Daredevil"
+    ];
     let streets = ["Washington Street", "Sinatra Drive", "River Street", "Court Street", "Bloomfield Street, Garden Street", "Park Avenue", "Willow Avenue",
         "Clinton Street", "Grand Street", "Adams Street", "Madison Street", "Monroe Street"
     ];
-    let numAddresses = 100;
+    let numAddresses = 200;
     console.log("let today = new Date();");
     console.log("let locations = [");
     for (let i = 0; i < numAddresses; i++) {
@@ -20,8 +23,8 @@ async function main() {
                 type: "Point",
                 coordinates: []
             },
-            covidStatus:true,
-            UserID: userList[Math.round(Math.random() * 2)],
+            covidStatus: true,
+            UserID: userList[Math.round(Math.random() * (userList.length - 1))],
             Address: "",
             DateVisited: date.setDate(date.getDate() - Number(Math.round(Math.random() * 14)))
         };

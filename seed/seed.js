@@ -19,7 +19,7 @@ async function main() {
     let user1 = {
         UserID: "cat123",
         passwordHash: "$2b$16$8eO89CCxGA0t.DwfKG2Dp.1NI/kNAKOJtMTxLe05QsX3MZ3fdFslK",
-        email: "example@example.com",
+        email: "9khaledsoltam@coincun.com",
         locationIDs: [],
         covidStatus: {
             reportPositive: true,
@@ -35,8 +35,8 @@ async function main() {
 
     let user2 = {
         UserID: "dog321",
-        passwordHash: "$2b$16$91w4Vm9r51JGVERNamGD6e4E3wVwoCoE9mgqnHwzJNta7VPqIqy4O",
-        email: "test@test.com",
+        passwordHash: "$2b$16$$2b$16$/1pxUrjCfN3AnPd.tsJX4eJXHzQgi.ujbPD.upt3I7UlNlhy02e/i",
+        email: "ppablou@billseo.com",
         locationIDs: [],
         covidStatus: {
             reportPositive: true,
@@ -52,7 +52,7 @@ async function main() {
     let user3 = {
         UserID: "HiHelloQwerty",
         passwordHash: "$2b$16$IJB70UUtZQDDCM79rJW8Ouih7BN/2skkVqiR4wsWQuN0tzKUYOi6q",
-        email: "123@123gmail.com",
+        email: "e1999mohamad4@maoaed.site",
         locationIDs: [],
         covidStatus: {
             reportPositive: true,
@@ -354,24 +354,7 @@ async function main() {
             throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
         }
     }
-    // console.log(`First user credentials: ${user1.UserID} : ${password1} \nLocations:`);
-    // for (let i = 0; i < locationList.length; i++) {
-    //     if (locationList[i].UserID == user1.UserID) {
-    //         console.log("\t" + locationList[i].Address);
-    //     }
-    // }
-    // console.log(`Second user credentials: ${user2.UserID} : ${password2} \nLocations:`);
-    // for (let i = 0; i < locationList.length; i++) {
-    //     if (locationList[i].UserID == user2.UserID) {
-    //         console.log("\t" + locationList[i].Address);
-    //     }
-    // }
-    // console.log(`Third user credentials: ${user3.UserID} : ${password3} \nLocations:`);
-    // for (let i = 0; i < locationList.length; i++) {
-    //     if (locationList[i].UserID == user3.UserID) {
-    //         console.log("\t" + locationList[i].Address);
-    //     }
-    // }
+    console.log("Loaded " + 20 + " users");
     console.log("Loaded " + locationList.length + " locations from the last month");
     const db = await connection();
     await db.serverConfig.close();
