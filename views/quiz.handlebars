@@ -5,8 +5,8 @@
 
 <h1>Welcome to the COVID-19 Quiz!</h1>
 
-
-<form method="post" id="quiz">
+<div id="formDiv">
+<form method="post" id="quiz-form">
     <h2>Have you experienced any of these symptoms?</h2>
         <li>Chills</li>
         <li>Runny Nose</li>
@@ -22,16 +22,13 @@
         <li>Sore Throat</li>
         <div>
             <input type="radio" name="q1" id="q1A" value="A" />
-            <label for="q1labelA">Yes </label>
+            <label for="q1">Yes</label>
         </div>
         
         <div>
             <input type="radio" name="q1" id="q1B" value="B" />
-            <label for="q1labelB">No </label>
+            <label for="q1">No</label>
         </div>
-</form>
-
-<form method="post" id="quiz">
 
     <h2>Do any of the following medical conditions apply to you?</h2>
         <li>Asthma</li>
@@ -45,31 +42,32 @@
         <li>Kidney Failure</li>
         <li>Serious heart condition</li>
         <div>
-            <input type="radio" name="q1" id="q1A" value="A" />
-            <label for="q1labelA">Yes </label>
+            <input type="radio" name="q2" id="q2A" value="A" />
+            <label for="q2">Yes</label>
         </div>
         
         <div>
-            <input type="radio" name="q1" id="q1B" value="B" />
-            <label for="q1labelB">No </label>
+            <input type="radio" name="q2" id="q2B" value="B" />
+            <label for="q2">No</label>
         </div>
-</form>
-
-<form method="post" id="quiz">
 
     <h2>Have you recently come into contact with someone that tested positive for COVID?</h2>
         <div>
-            <input type="radio" name="q1" id="q1A" value="A" />
-            <label for="q1labelA">Yes </label>
+            <input type="radio" name="q3" id="q3A" value="A" />
+            <label for="q3">Yes </label>
         </div>
         
         <div>
-            <input type="radio" name="q1" id="q1B" value="B" />
-            <label for="q1labelB">No </label>
+            <input type="radio" name="q3" id="q3B" value="B" />
+            <label for="q3">No</label>
         </div>
+        <div id="errorDiv"></div>
+        <button type="submit">Submit Quiz</button>
 </form>
+</div>
 
-<input type="submit" value="SubmitQuiz" />
+<div id="results"></div>
+
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-{{!-- <script src="/public/js/quizAJAX.js"></script> --}}
+<script src="/public/js/quizAJAX.js"></script>
