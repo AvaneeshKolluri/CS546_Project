@@ -84,6 +84,13 @@ router.post("/", async(req, res) => {
             if (new Date(req.body.date) > new Date()) {
                 throw "Date Has Not Yet Occured. Please Enter A Valid Date.";
             }
+            let diff = Math.abs(new Date().getTime() - new Date(req.body.date).getTime()) / (1000 * 60 * 60 * 24);
+
+            if (diff > 14) {
+                throw "Date Is More Than Two Weeks Old. Please Enter A Valid Date.";
+            }
+
+
             let date = req.body.date.split("-");
             let delimited = parseInt(date[1], 10) + "/" + parseInt(date[2], 10) + "/" + date[0];
             let address = req.body.street + ", Hoboken, Hudson County, New Jersey";

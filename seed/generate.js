@@ -23,7 +23,6 @@ async function main() {
                 type: "Point",
                 coordinates: []
             },
-            covidStatus: true,
             UserID: userList[Math.round(Math.random() * (userList.length - 1))],
             Address: "",
             DateVisited: date.setDate(date.getDate() - Number(Math.round(Math.random() * 14)))
