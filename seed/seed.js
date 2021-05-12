@@ -348,14 +348,14 @@ async function main() {
         throw addLocationListData.insertedCount + " were inserted instead of 9";
     }
 
-    // addUser1Locations undefined
-    // for (let i = 0; i < locationList.length; i++) {
-    //     let l = locationList[i];
-    //     let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
-    //     if (addLocation.result.nModified != 1) {
-    //         throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
-    //     }
-    // }
+
+    for (let i = 0; i < locationList.length; i++) {
+        let l = locationList[i];
+        let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
+        if (addLocation.result.nModified != 1) {
+            throw "Expected modified: " + 1 + " Actual modified: " + addLocation.result.nModified;
+        }
+    }
     console.log("Loaded " + 20 + " users");
     console.log("Loaded " + locationList.length + " locations from the last month");
     const db = await connection();

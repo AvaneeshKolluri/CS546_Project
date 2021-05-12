@@ -4,9 +4,9 @@ const Nominatim = require('nominatim-geocoder');
 const geocoder = new Nominatim();
 
 async function main() {
-    let userList = ["cat123", "dog321", "HiHelloQwerty", "Pancakes", "Lettuce",
-        "GreenForest", "SeattleLover", "YogaGuru", "Explorer", "Pioneer", "MathLover",
-        "FallPerson", "Climber", "Employee", "Baker", "Entertainer", "CarGuy", "Accountant", "Zookeeper", "Daredevil"
+    let userList = ["cat123", "dog321", "hihelloqwerty", "pancakes", "lettuce",
+        "greenforest", "seattlelover", "yogaguru", "explorer", "pioneer", "mathlover",
+        "fallperson", "climber", "employee", "bigbaker", "entertainer", "thecarguy", "accountant", "zookeeper", "daredevil"
     ];
     let streets = ["Washington Street", "Sinatra Drive", "River Street", "Court Street", "Bloomfield Street, Garden Street", "Park Avenue", "Willow Avenue",
         "Clinton Street", "Grand Street", "Adams Street", "Madison Street", "Monroe Street"
