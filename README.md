@@ -22,40 +22,40 @@ Initial user credentials for seed.js:
 
 1. UserID: "cat123" password = "Thisisapassword321"
 
-2. UserID: "dog321" password = "Hunter23"
+2. UserID: "dog321" password = "Doghunter23"
 
-3. UserID: "HiHelloQwerty" password = "ComplexPassword09"
+3. UserID: "hihelloqwerty" password = "ComplexPassword09"
 
-4. UserID: "Pancakes" password = "circleread89material99"
+4. UserID: "pancakes" password = "Circleread89"
 
-5. UserID: "Lettuce" password = "71greenspendshout19"
+5. UserID: "lettuce" password = "71Greenspend"
 
-6. UserID: "GreenForest" password = "97always33suchproblem"
+6. UserID: "greenforest" password = "97Always33"
 
-7. UserID: "SeattleLover" password = "81earthough67settle"
+7. UserID: "seattlelover" password = "81Earthough"
 
-8. UserID: "YogaGuru" password = "part27body43help"
+8. UserID: "yogaguru" password = "Part27body"
 
-9. UserID: "Explorer" password = "mindhurry2784safe"
+9. UserID: "explorer" password = "Mindhurry27"
 
-10. UserID: "Pioneer" password = "55hunt37greatand"
+10. UserID: "pioneer" password = "55Hunt37great"
 
-11. UserID: "MathLover" password = "44evencompare31bad"
+11. UserID: "mathlover" password = "44Evencompare"
 
-12. UserID: "FallPerson" password = "9040colorlotseason"
+12. UserID: "fallperson" password = "9040Colorlot"
 
-13. UserID: "Climber" password = "8744offfigurestone"
+13. UserID: "climber" password = "8744Offstone"
 
-14. UserID: "Employee" password = "593minutesteamraise"
+14. UserID: "employee" password = "593Minutesteam"
 
-15. UserID: "Baker" password = "mix81stood99call"
+15. UserID: "bigbaker" password = "Mix81stood"
 
-16. UserID: "Entertainer" password = "hot84centuryburn44"
+16. UserID: "entertainer" password = "Hot84century"
 
-17. UserID: "CarGuy" password = "two85tirefelt18"
+17. UserID: "thecarguy" password = "Two85tire"
 
-18. UserID: "Accountant" password = "form6244happenstretch"
+18. UserID: "accountant" password = "Form6244happen"
 
-19. UserID: "Zookeeper" password = "observesystem1882fish"
+19. UserID: "zookeeper" password = "Observesystem18"
 
-20. UserID: "Daredevil" password = "pair2434fireturn"
+20. UserID: "daredevil" password = "Pair2434fire"

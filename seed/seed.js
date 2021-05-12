@@ -32,10 +32,9 @@ async function main() {
     }
 
 
-
     let user2 = {
         UserID: "dog321",
-        passwordHash: "$2b$16$$2b$16$/1pxUrjCfN3AnPd.tsJX4eJXHzQgi.ujbPD.upt3I7UlNlhy02e/i",
+        passwordHash: "$2b$16$mmBm3SJmzTVOkrtk1.M86ew2m4g1AYQncJgipNTgB98AmICS6G0AC",
         email: "ppablou@billseo.com",
         locationIDs: [],
         covidStatus: {
@@ -50,8 +49,8 @@ async function main() {
 
 
     let user3 = {
-        UserID: "HiHelloQwerty",
-        passwordHash: "$2b$16$IJB70UUtZQDDCM79rJW8Ouih7BN/2skkVqiR4wsWQuN0tzKUYOi6q",
+        UserID: "hihelloqwerty",
+        passwordHash: "$2b$16$sdv4uqM0DaI8VgHx24XQZ.JklXZZA/iGbhCcxwIu5D65OrwdrJQAG",
         email: "e1999mohamad4@maoaed.site",
         locationIDs: [],
         covidStatus: {
@@ -66,8 +65,8 @@ async function main() {
 
 
     let user4 = {
-        UserID: "Pancakes",
-        passwordHash: "$2b$16$a4CGiE.JSaQofW71MNv9Qus/ZsQmCeZkm7KTE.SjsTw/8.EBNPVem",
+        UserID: "pancakes",
+        passwordHash: "$2b$16$Y7/6lXqGlweFFWegs3AefuRLwRvg5tuo.7h.YeqfnM7Wlf9kAII8u",
         email: "5rahul@godobolet.buzz",
         locationIDs: [],
         covidStatus: {
@@ -82,8 +81,8 @@ async function main() {
 
 
     let user5 = {
-        UserID: "Lettuce",
-        passwordHash: "$2b$16$7Zmdq4BY7/gSoP6Kkv9MqOccbm5PTK/UOXvzO.JfwCDcnX7d6fQA.",
+        UserID: "lettuce",
+        passwordHash: "$2b$16$mc4McLSQSZFHu/BckrhX4ON/I5falN1TCJ611jp6tTN0xjAhGUZLK",
         email: "1geyce.chre@dichima.com",
         locationIDs: [],
         covidStatus: {
@@ -98,8 +97,8 @@ async function main() {
 
 
     let user6 = {
-        UserID: "GreenForest",
-        passwordHash: "$2b$16$PPFCY/Oapl3hwIvieyuFWeSvzsEWUQTY8wFj00qzVna2XAzb0fxNG",
+        UserID: "greenforest",
+        passwordHash: "$2b$16$zw1D4ORyuZ0UOjBSEQuFOemg8lLwig8w7.zRRyeVjAipl4GQ2J1oa",
         email: "msamedomamedofms@somitata.com",
         locationIDs: [],
         covidStatus: {
@@ -114,8 +113,8 @@ async function main() {
 
 
     let user7 = {
-        UserID: "SeattleLover",
-        passwordHash: "$2b$16$cU5VTQgs1z.k9dIt8fq9wOAMHFOI6lVfRdYr8yro.uuibO2dxeJW.",
+        UserID: "seattlelover",
+        passwordHash: "$2b$16$iriTVITMIDJomdp1MTe2xexwT.A1lu2PC17KcTXYqNW2X15vcLvZq",
         email: "dcanerkaraveliogy@noisemails.com",
         locationIDs: [],
         covidStatus: {
@@ -130,8 +129,8 @@ async function main() {
 
 
     let user8 = {
-        UserID: "YogaGuru",
-        passwordHash: "$2b$16$NoKU76hfGNvFun9FihNNXu7DSJZpm8u0tPjsqeYDNr/.wc4o7FR7G",
+        UserID: "yogaguru",
+        passwordHash: "$2b$16$v5M0IVWFC4GTGStQwka98.38HFaQWxvMQgZOGF.2k8hlfql94rJHC",
         email: "asab@gddao.com",
         locationIDs: [],
         covidStatus: {
@@ -146,8 +145,8 @@ async function main() {
 
 
     let user9 = {
-        UserID: "Explorer",
-        passwordHash: "$2b$16$m3lDGUIVlUsasx/z5mzJzOim2kT38no.bhYPTq39j80MlmNIw1qsi",
+        UserID: "explorer",
+        passwordHash: "$2b$16$.8jC.Yr/RHXcTIygJZSTduvlnmq7TswNtn.JMOU.hQLJRA1G5pTJO",
         email: "wlovesfand21@icahu.com",
         locationIDs: [],
         covidStatus: {
@@ -162,8 +161,8 @@ async function main() {
 
 
     let user10 = {
-        UserID: "Pioneer",
-        passwordHash: "$2b$16$oOwPwWwfkjafgf.WM0mX4OB7dLznlR4zQqyhzDWgYUerZ.usjwckC",
+        UserID: "pioneer",
+        passwordHash: "$2b$16$R7gA8ULRibMTgZzQC0dw5Od9bbcWTT8wc.v895i1Tx6rb1IbHdyf.",
         email: "7last.round.37@docx.site",
         locationIDs: [],
         covidStatus: {
@@ -178,8 +177,8 @@ async function main() {
 
 
     let user11 = {
-        UserID: "MathLover",
-        passwordHash: "$2b$16$oB/Q5zey16UWbSGwE3Q3Ouw9JfQCcs.ut3OhM0/2O0wkiktTiLZZq",
+        UserID: "mathlover",
+        passwordHash: "$2b$16$IVq7eVZ8kLpumm7bZLEVt.UJ0Ny3Y7WkfM.V2fRdALpDIYlLAQJ9u",
         email: "uyasirshakespear9@betwin899.net",
         locationIDs: [],
         covidStatus: {
@@ -194,8 +193,8 @@ async function main() {
 
 
     let user12 = {
-        UserID: "FallPerson",
-        passwordHash: "$2b$16$HgSA3BDAz/LqHNnYiVq2bOs91GWxpLmAW2fvBYcidbZ67aQoHvJp2",
+        UserID: "fallperson",
+        passwordHash: "$2b$16$W2CE22q97Ayq8.kTeKOGa.fRUayeBEXiwMp35sXi6WhcgiH1uaeUy",
         email: "vabody.alhrb@tapiitudulu.com",
         locationIDs: [],
         covidStatus: {
@@ -209,9 +208,10 @@ async function main() {
     }
 
 
+
     let user13 = {
-        UserID: "Climber",
-        passwordHash: "$2b$16$G61FNDNlNYFYC4BvOID.fu0AiP5m7oM3zeI262NoHIJiR8b5DGmOO",
+        UserID: "climber",
+        passwordHash: "$2b$16$9zTJFIYy4BpXKF7XTNPQG.ldX4ZsJyiJXOT52XCVgma1sQIYKBBMe",
         email: "bsevenraysg@gmailup.com",
         locationIDs: [],
         covidStatus: {
@@ -226,8 +226,8 @@ async function main() {
 
 
     let user14 = {
-        UserID: "Employee",
-        passwordHash: "$2b$16$Uet7/m18toOCPXNYOtzUTOd80abmfo2Kx4vPPo0OmuXDJ.xrmZVe.",
+        UserID: "employee",
+        passwordHash: "$2b$16$lZj0dBATdHfMTmlU9wYn5O61i6SB4STXx962f1p/rEn0UfPy6EMv.",
         email: "3kader.l.rebiair@tahugejrot.buzz",
         locationIDs: [],
         covidStatus: {
@@ -242,8 +242,8 @@ async function main() {
 
 
     let user15 = {
-        UserID: "Baker",
-        passwordHash: "$2b$16$pNQ3pznp.Fr.cRDEuTbT3uZv2xEqkAmSNd18wf19xRBmfC1JSyO7O",
+        UserID: "bigbaker",
+        passwordHash: "$2b$16$hpYTYqmmG298p/yFyZhoMuNzCHBH48Y62GNHvT1Fl8WaQeu1WVJie",
         email: "ossama.bargachi@notvn.com",
         locationIDs: [],
         covidStatus: {
@@ -258,8 +258,8 @@ async function main() {
 
 
     let user16 = {
-        UserID: "Entertainer",
-        passwordHash: "$2b$16$uM1/6bkqmH0QXXDVbh8mbO7uAU.GxyiuEKyVMzpOwwMsLjJKYr5eG",
+        UserID: "entertainer",
+        passwordHash: "$2b$16$sJa6Zg3Neo0T8NoS16f5bu8eqSAY1HZRAjMh3o0eLJeQT7HR7fldO",
         email: "orachid.mirbouhik@ebarg.net",
         locationIDs: [],
         covidStatus: {
@@ -274,8 +274,8 @@ async function main() {
 
 
     let user17 = {
-        UserID: "CarGuy",
-        passwordHash: "$2b$16$7Hey1KUqU9WKdKAUSZK7cuixXVikRwijs8qBonjs4oBfvQLTvz/Qi",
+        UserID: "thecarguy",
+        passwordHash: "$2b$16$5tEtcf3u.rVUDq3fkxbbS.uRtaYfPMMHacuFqzZxOSpWgUQ1wF06i",
         email: "amaicon-lahm9@ducatimotorclubdenver.com",
         locationIDs: [],
         covidStatus: {
@@ -290,8 +290,8 @@ async function main() {
 
 
     let user18 = {
-        UserID: "Accountant",
-        passwordHash: "$2b$16$1Iqh1krgwBYHKew9T4w1U.aU4tGB5TZHFVqNAgYDjutRVBY22OVYS",
+        UserID: "accountant",
+        passwordHash: "$2b$16$iKcgMEIzuDQ8twaJFtuJxOGwHd0G2Ob3l80iMVIRZ6jnhgUmEXhYK",
         email: "abtatssso@cajon.ca",
         locationIDs: [],
         covidStatus: {
@@ -306,8 +306,8 @@ async function main() {
 
 
     let user19 = {
-        UserID: "Zookeeper",
-        passwordHash: "$2b$16$dsOEj/WCiPJ0wesMcibbnecCKI.SwZj0JswZdUgp0u2bFDmNrdCW6",
+        UserID: "zookeeper",
+        passwordHash: "$2b$16$J8PA6nzUDhjvap1OVJz8KOleU9zJAzue.RgKCcLq6UW8dkHTCOa8.",
         email: "dsol.ell@werkuldino.buzz",
         locationIDs: [],
         covidStatus: {
@@ -322,8 +322,8 @@ async function main() {
 
 
     let user20 = {
-        UserID: "Daredevil",
-        passwordHash: "$2b$16$/kUAphUhzTRo8Y0g9Hu/GOpgKAEaBlggJun0gLTmaOvkPzN/GtY1.",
+        UserID: "daredevil",
+        passwordHash: "$2b$16$J5gn/F5h4oIQdjnpPaYVHuYnnOliFlGlKvYe4QL0w9XnNJEj86/D6",
         email: "tsmailmixra@plussmail.com",
         locationIDs: [],
         covidStatus: {
@@ -347,13 +347,15 @@ async function main() {
     if (addLocationListData.insertedCount != locationList.length) {
         throw addLocationListData.insertedCount + " were inserted instead of 9";
     }
-    for (let i = 0; i < locationList.length; i++) {
-        let l = locationList[i];
-        let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
-        if (addLocation.result.nModified != 1) {
-            throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
-        }
-    }
+
+    // addUser1Locations undefined
+    // for (let i = 0; i < locationList.length; i++) {
+    //     let l = locationList[i];
+    //     let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
+    //     if (addLocation.result.nModified != 1) {
+    //         throw "Expected modified: " + 1 + " Actual modified: " + addUser1Locations.result.nModified;
+    //     }
+    // }
     console.log("Loaded " + 20 + " users");
     console.log("Loaded " + locationList.length + " locations from the last month");
     const db = await connection();
