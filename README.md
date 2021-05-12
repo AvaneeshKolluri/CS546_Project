@@ -11,7 +11,7 @@ Covid-19 Tracker that allows users to see Covid-19 hotspots in Hoboken, NJ.
 ### To run the server:
 ``` npm start ```
 
-### To generate entirely new seed
+### We provided seed data for you, but if you would like to generate your own:
 ``` npm run generate ```
 
 ### Seed emails

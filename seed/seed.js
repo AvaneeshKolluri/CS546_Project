@@ -353,6 +353,7 @@ async function main() {
         let l = locationList[i];
         let addLocation = await usersCollection.update({ UserID: l.UserID }, { $push: { locationIDs: l._id } });
         if (addLocation.result.nModified != 1) {
+            console.log(l);
             throw "Expected modified: " + 1 + " Actual modified: " + addLocation.result.nModified;
         }
     }

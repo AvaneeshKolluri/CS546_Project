@@ -12,7 +12,6 @@ async function main() {
         "Clinton Street", "Grand Street", "Adams Street", "Madison Street", "Monroe Street"
     ];
     let numAddresses = 200;
-    console.log("let today = new Date();");
     console.log("let locations = [");
     for (let i = 0; i < numAddresses; i++) {
         //console.log("Generating address " + (i + 1) + "/" + numAddresses);

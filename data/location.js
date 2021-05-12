@@ -28,6 +28,7 @@ function sendCovidAlert(emails, date, address) {
         };
         try {
             const sendData = transporter.sendMail(alert);
+            console.log("Sending emails to " + emails[i])
         } catch (e) {
             console.log("Invalid Email, did not send alert");
         }
