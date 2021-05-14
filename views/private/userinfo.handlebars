@@ -23,13 +23,13 @@
 <form action = '/userinfo/covidstatus' id="covid_status_form" method="POST">
 
     <p>Have You Tested Positive for Covid in the past two weeks?</p>
-    <input type="radio" name="covid_report" value="Yes">
-    <label>Yes</label><br>
+    <input type="radio" name="covid_report" id="covid_report_1" value="Yes">
+    <label for="covid_report_1">Yes</label><br>
 
-    <input type="radio" name="covid_report" value="No">
-    <label>No</label><br>
+    <input type="radio" name="covid_report" id="covid_report_2" value="No">
+    <label for="covid_report_2">No</label><br>
 
-    <p> Only If You Test Positive, Report the day you tested Positive.</p>
+    <label for="report_date"> Only If You Test Positive, Report the day you tested Positive.</label>
     <input type="date" name="report_date" id="report_date" placeholder="Enter The Date">
     <button type="submit"> Submit</button>
 
