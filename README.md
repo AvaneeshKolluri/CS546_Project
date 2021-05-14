@@ -15,7 +15,7 @@ Covid-19 Tracker that allows users to see Covid-19 hotspots in Hoboken, NJ.
 ``` npm run generate ```
 
 ### Seed emails
-All user seed email inboxes can be seen on [generator.email/\<email>](generator.email)
+All user seed email inboxes can be seen on [https://generator.email/\<email>](generator.email)
 
 ### Seed Credentials
 Initial user credentials for seed.js:
