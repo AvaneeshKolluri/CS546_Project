@@ -48,7 +48,7 @@ const exportedMethods = {
             return false;
         }
         // Alphanumeric string between 6 to 16 characters
-        let usernamePattern = /^[a-z0-9]{6,16}$/;
+        let usernamePattern = /^[a-zA-Z0-9]{6,16}$/;
         return username.match(usernamePattern) && this.xssTest(username);
     },
     password(password) {
