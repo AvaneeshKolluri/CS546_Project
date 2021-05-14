@@ -50,7 +50,6 @@
             resultsDiv.empty();
         });
         results.append(restart);
-        results.append('<a  href="/"><button class="btn btn-secondary">Home Page</button></a>');
         formDiv.hide();
         results.show();
     });

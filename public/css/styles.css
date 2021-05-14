@@ -17,7 +17,7 @@
 	text-align: center;
 }
 
-.login-header, .signUp-header {
+.login-header, .signUp-header, .quiz-header {
 	text-align: center;
 	font-weight: bold;
 }

@@ -3,10 +3,11 @@
     <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 
-<h1>Welcome to the COVID-19 Quiz!</h1>
+<h1 class="quiz-header">Welcome to the COVID-19 Quiz!</h1>
 
 <div id="formDiv">
 <form method="post" id="quiz-form">
+    <div class="col-auto">
     <h2>Have you experienced any of these symptoms?</h2>
         <li>Chills</li>
         <li>Runny Nose</li>
@@ -20,16 +21,17 @@
         <li>Difficulty Breathing</li>
         <li>Fever</li>
         <li>Sore Throat</li>
-        <div>
-            <input type="radio" name="q1" id="q1A" value="A" />
-            <label for="q1A">Yes</label>
+        <div class="form-check">
+            <input type="radio" name="q1" id="q1A" value="A" class="form-check-input" />
+            <label for="q1A" class="form-check-label">Yes</label>
         </div>
         
-        <div>
-            <input type="radio" name="q1" id="q1B" value="B" />
-            <label for="q1B">No</label>
+        <div class="form-check">
+            <input type="radio" name="q1" id="q1B" value="B" class="form-check-input"/>
+            <label for="q1B" class="form-check-label">No</label>
         </div>
-
+    </div>
+    <div class="col-auto">
     <h2>Do any of the following medical conditions apply to you?</h2>
         <li>Asthma</li>
         <li>Lung Disease</li>
@@ -41,33 +43,40 @@
         <li>Hypertension/High Blood Pressure</li>
         <li>Kidney Failure</li>
         <li>Serious heart condition</li>
-        <div>
-            <input type="radio" name="q2" id="q2A" value="A" />
-            <label for="q2A">Yes</label>
+        <div class="form-check">
+            <input type="radio" name="q2" id="q2A" value="A" class="form-check-input"/>
+            <label for="q2A" class="form-check-label">Yes</label>
         </div>
         
-        <div>
-            <input type="radio" name="q2" id="q2B" value="B" />
-            <label for="q2B">No</label>
+        <div class="form-check">
+            <input type="radio" name="q2" id="q2B" value="B" class="form-check-input"/>
+            <label for="q2B" class="form-check-label">No</label>
         </div>
-
+    </div>
+    <div class="col-auto">
     <h2>Have you recently come into contact with someone that tested positive for COVID?</h2>
-        <div>
-            <input type="radio" name="q3" id="q3A" value="A" />
-            <label for="q3A">Yes </label>
+        <div class="form-check">
+            <input type="radio" name="q3" id="q3A" value="A" class="form-check-input"/>
+            <label for="q3A" class="form-check-label">Yes </label>
         </div>
         
-        <div>
-            <input type="radio" name="q3" id="q3B" value="B" />
-            <label for="q3B">No</label>
+        <div class="form-check">
+            <input type="radio" name="q3" id="q3B" value="B" class="form-check-input"/>
+            <label for="q3B" class="form-check-label">No</label>
         </div>
+    </div>
+    <div class="col-auto">
         <div id="errorDiv"></div>
-        <button type="submit">Submit Quiz</button>
+        <button type="submit" class="btn btn-primary">Submit Quiz</button>
+    </div>
 </form>
 </div>
 
 <div id="results"></div>
 
+<div class="home-button-div">
+    <a  href="/"><button class="btn btn-secondary">Home Page</button></a>
+</div>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="/public/js/quizAJAX.js"></script>
