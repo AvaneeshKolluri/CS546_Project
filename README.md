@@ -19,6 +19,7 @@ All user seed email inboxes can be seen on [generator.email/\<email>](generator.
 
 ### Seed Credentials
 Initial user credentials for seed.js:
+*All usernames and passwords are case sensitive.
 
 1. UserID: "cat123" password = "Thisisapassword321"
 
