@@ -28,18 +28,20 @@ router.post('/', async(req, res) => {
 
 
     try {
+        let lowerUser = username.toLowerCase();
+        let lowerEmail = email.toLowerCase();
         const userCollection = await usersMDB();
-        const existUsername = await userCollection.findOne({ UserID: username });
+        const existUsername = await userCollection.findOne({ UserID: lowerUser });
         if (existUsername) {
             throw 'Username is taken, try a different userID'
         }
-        const existEmail = await userCollection.findOne({ email: email });
+        const existEmail = await userCollection.findOne({ email: lowerEmail });
         if (existEmail) {
             throw 'Email is taken, please login using your current account or with a new email'
         }
 
 
-        if (valid.userID(username) == false) {
+        if (valid.userID(lowerUser) == false) {
             throw 'Username should be an alphanumeric string between 6 to 16 characters';
         }
 
@@ -47,11 +49,11 @@ router.post('/', async(req, res) => {
             throw 'Password should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long';
         }
 
-        if (valid.email(email) == false) {
+        if (valid.email(lowerEmail) == false) {
             throw 'Email should be of the proper email format';
         }
 
-        let newUser = await users.Create(email, username, password);
+        let newUser = await users.Create(lowerEmail, lowerUser, password);
         console.log(newUser);
         res.redirect("/api/login");
     } catch (e) {
