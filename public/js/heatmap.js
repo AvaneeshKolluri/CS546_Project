@@ -45,11 +45,50 @@ function getLocations(){
 
 //Toggle to show/hide list of hotspots
 function toggleLocationsList() {
+  var btn = document.getElementById("search");
+
   var x = document.getElementById("heatmap-locations");
   if (x.style.display === "none") {
     x.style.display = "block";
+    btn.style.display = 'block';
   } else {
+    btn.style.display = 'none';
     x.style.display = "none";
+  }
+}
+
+
+function searchLocations() {
+  // Declare variables
+  var input, filter, ol, li, a, i, txtValue;
+  
+  input = document.getElementById('searchInput');
+  filter = input.value.toUpperCase();
+  ol = document.getElementById("locations-list");
+  li = ol.getElementsByTagName('li');
+  
+
+  /*for (i = 0; i < li.length; i++) {
+
+    //ol.children[i].style.visibility = 'visible';
+    ol.children[i].style.display = 'normal';
+  }*/
+
+  console.log(filter);
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+
+    a = li[i];
+    //console.log(a)
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        console.log('search found');
+        ol.children[i].style.display = 'block';
+
+    } else {
+        ol.children[i].style.display = 'none';
+        //ol.children[i].style.visibility = 'hidden';
+    }
   }
 }
 
@@ -57,3 +96,6 @@ window.addEventListener('load', function() {
   getLocations();
   initMap();
 })
+
+
+
