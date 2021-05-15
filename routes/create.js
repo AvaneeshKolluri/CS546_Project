@@ -7,7 +7,6 @@ const usersMDB = mongoCollections.users;
 
 router.get('/', async(req, res) => {
     if (req.session.user) {
-        //this needs to be updated with navbar and a private page
         res.redirect('/');
     } else {
         res.render("create");
@@ -54,11 +53,10 @@ router.post('/', async(req, res) => {
         }
 
         let newUser = await users.Create(lowerEmail, lowerUser, password);
-        console.log(newUser);
         res.redirect("/api/login");
     } catch (e) {
         res.status(400).render('create', { error: e })
-        
+
     }
 
 });

@@ -12,15 +12,12 @@ router.get("/", async(req, res) => {
         res.render('private/userinfo', { username: req.session.user['UserID'], locations: user_locations, isError: false, error: null, isLoc: false });
         return;
     } else {
-        //this is because you are not logged in
         return res.redirect('/');
     }
 });
 
 router.post("/covidstatus", async(req, res) => {
-    console.log("im here");
     if (req.session.user) {
-
 
         try {
 
@@ -110,7 +107,6 @@ router.post("/", async(req, res) => {
             res.render('partials/location_info', { geo: null, date: null, isError: true, error: e, isLoc: false });
 
             return;
-            //res.status(400).json(e);
         }
     } else {
         return res.redirect('/');
