@@ -66,13 +66,6 @@ function searchLocations() {
   filter = input.value.toUpperCase();
   ol = document.getElementById("locations-list");
   li = ol.getElementsByTagName('li');
-  
-
-  /*for (i = 0; i < li.length; i++) {
-
-    //ol.children[i].style.visibility = 'visible';
-    ol.children[i].style.display = 'normal';
-  }*/
 
   console.log(filter);
   // Loop through all list items, and hide those who don't match the search query
